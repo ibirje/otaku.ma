@@ -18,11 +18,15 @@
 *.sublime-workspace
 
 # IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+.vscode/
+
+# Firebase
+.firebase/
+.firebaserc
+firebase.json
+
+# e2e (replaced by Playwright)
+/e2e
 
 # misc
 /.sass-cache

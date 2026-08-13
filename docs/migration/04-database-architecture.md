@@ -36,127 +36,158 @@ In Firestore, **JOINs don't exist**. You model data the way it will be read.
 
 ## Microservice → Collection Ownership
 
-Each microservice owns and is the **sole writer** to its collections:
+Each microservice owns and is the **sole writer** to its collections.  
+Derived from the actual `otaserver` MySQL schema (35 tables):
 
-| Microservice | Firestore Collections |
-|-------------|----------------------|
-| `auth-service` | `auth_tokens`, `refresh_tokens` |
-| `user-service` | `users`, `user_settings`, `follows` |
-| `catalog-service` | `animes`, `games`, `genres`, `studios` |
-| `list-service` | `watchlists`, `gameplaylists` |
-| `review-service` | `reviews`, `ratings`, `comments` |
-| `notification-service` | `notifications`, `push_subscriptions` |
+| Microservice | Firestore Collections | Source SQL Tables |
+|-------------|----------------------|-------------------|
+| `auth-service` | `admins`, `admin_roles`, `admin_droits`, `admin_tokens`, `client_sessions` | `admin`, `admin_role`, `admin_droit`, `admin_roledroit`, `token`, `client_session` |
+| `user-service` | `clients`, `client_addresses`, `client_pending` | `client`, `client_login`, `client_adresse`, `client_pending` |
+| `catalog-service` | `products`, `categories`, `themes`, `attributes`, `attribute_options`, `variations`, `variation_options` | `produit`, `categorie`, `theme`, `attribut`, `optionattribut`, `variation`, `variationoption` |
+| `order-service` | `orders`, `order_items`, `couriers` | `commande`, `commandeitem`, `coursier` |
+| `inventory-service` | `purchase_orders`, `purchase_items`, `skus`, `suppliers`, `damages`, `losses` | `achatstock`, `achatstockitem`, `sku`, `fournisseur`, `casse`, `perte` |
+| `review-service` | `reviews` | `avis` |
 
 ---
 
 ## Proposed Document Schemas
 
-### `users` (owned by `user-service`)
+These are grounded in the **actual MySQL DDL** (`migration-sql-firestore/ddl/ddl.sql` — 35 tables).
+
+### `products` (owned by `catalog-service`)
 
 ```
-users/{userId}
+products/{productId}
+  ├── id: string                  ← produitID (string form)
+  ├── code: string                ← URL-safe slug
+  ├── nom: string
+  ├── keywords: string | null
+  ├── description: string | null
+  ├── prixUnite: number
+  ├── prixPromo: number | null
+  ├── qte: number                 ← denormalised stock total
+  ├── images: string[]
+  ├── isActive: boolean
+  ├── categorie: { id, code, nom }   ← denormalised
+  ├── theme: { id, code, nom }       ← denormalised
+  └── attributs: [{                  ← denormalised from attribut + optionattribut
+        attributId, nom,
+        options: [{ optionId, description }]
+      }]
+```
+
+Subcollection for variations:
+```
+products/{productId}/variations/{variationId}
+  ├── id, code, nom
+  ├── prixUnite: number
+  ├── prixPromo: number | null
+  ├── images: string[]
+  ├── qte: number
+  └── options: [{ optionAttributId, description }]
+```
+
+### `clients` (owned by `user-service`)
+
+```
+clients/{clientId}
+  ├── id, nom, prenom, email, pseudo
+  ├── telephone1, telephone2
+  ├── dateNaissance: timestamp | null
+  ├── isActive: boolean
+  ├── etat: 'NORMAL' | 'BLOQUE' | 'SUPPRIME'
+  ├── panierCount: number
+  └── dateCreation: timestamp
+```
+
+Subcollection for addresses:
+```
+clients/{clientId}/adresses/{adresseId}
+  ├── id, prenom, nom, organisation
+  ├── adresse1, adresse2, ville, codePostal
+  ├── telephone1, telephone2, email
+  └── etat: string | null         ← 'SELECTED' or null
+```
+
+### `orders` (owned by `order-service`)
+
+```
+orders/{orderId}
   ├── id: string
-  ├── username: string
-  ├── displayName: string
-  ├── avatarUrl: string
-  ├── bio: string
-  ├── createdAt: timestamp
-  ├── updatedAt: timestamp
-  └── stats: {                    ← denormalised for fast profile reads
-        animeCount: number,
-        followersCount: number,
-        followingCount: number
-      }
+  ├── code: string                ← unique order reference
+  ├── clientId: string
+  ├── clientNom, clientEmail      ← denormalised snapshot
+  ├── etat: 'EN_ATTENTE' | 'ACCEPTEE' | 'EN_PREPARATION' | 'ENVOYEE' | 'LIVREE' | 'ANNULEE'
+  ├── prixPieces: number
+  ├── prixLivraison: number
+  ├── dateCommande: timestamp
+  ├── adresseLivraison: { ... }   ← full address snapshot at order time
+  ├── items: [{                   ← embedded commandeitem rows
+  │     produitId, produitNom, variationId, variationNom,
+  │     quantite: number, prixUnite: number
+  │   }]
+  └── coursier: { id, nom, prix } ← snapshot
 ```
 
-### `animes` (owned by `catalog-service`)
+### `categories` (owned by `catalog-service`)
 
 ```
-animes/{animeId}
-  ├── id: string
-  ├── title: { en: string, ja: string, romaji: string }
-  ├── synopsis: string
-  ├── coverImageUrl: string
-  ├── bannerImageUrl: string
-  ├── genres: string[]            ← denormalised from genres collection
-  ├── studio: string              ← denormalised name, not FK
-  ├── episodeCount: number
-  ├── status: 'AIRING' | 'FINISHED' | 'UPCOMING'
-  ├── season: { year: number, quarter: 'WINTER'|'SPRING'|'SUMMER'|'FALL' }
-  ├── averageRating: number       ← denormalised, updated by review-service events
-  ├── ratingCount: number
-  └── createdAt: timestamp
+categories/{categorieId}
+  ├── id, code, nom
+  ├── keywords, description
+  ├── nombreProduits: number
+  ├── isActive: boolean
+  ├── smallImage, mediumImage, largeImage
+  └── categorieParentId: string | null
 ```
 
-### `watchlists/{userId}/entries` (owned by `list-service`)
-
-Using a **subcollection** per user for efficient per-user queries:
+### `themes` (owned by `catalog-service`)
 
 ```
-watchlists/{userId}/entries/{animeId}
-  ├── animeId: string
-  ├── animeTitle: string          ← denormalised for list display without joins
-  ├── animeCoverUrl: string       ← denormalised
-  ├── status: 'WATCHING' | 'COMPLETED' | 'PLANNED' | 'DROPPED'
-  ├── progress: number            ← episodes watched
-  ├── rating: number | null
-  ├── notes: string
-  ├── startedAt: timestamp | null
-  └── completedAt: timestamp | null
-```
-
-**Query this collection:**
-
-```
-// Get all completed anime for a user
-db.collection('watchlists').doc(userId)
-  .collection('entries')
-  .where('status', '==', 'COMPLETED')
-  .orderBy('completedAt', 'desc')
-  .limit(20)
+themes/{themeId}
+  ├── id, code, nom
+  ├── description
+  ├── nombreProduits: number
+  ├── isActive: boolean
+  └── images: string[]
 ```
 
 ### `reviews` (owned by `review-service`)
 
 ```
 reviews/{reviewId}
-  ├── id: string
-  ├── userId: string
-  ├── username: string            ← denormalised
-  ├── userAvatarUrl: string       ← denormalised
-  ├── animeId: string
-  ├── animeTitle: string          ← denormalised
-  ├── rating: number              ← 1–10
-  ├── body: string
-  ├── spoiler: boolean
-  ├── likes: number
-  ├── createdAt: timestamp
-  └── updatedAt: timestamp
+  ├── id, clientId, productId
+  ├── clientNom           ← denormalised
+  ├── productNom          ← denormalised
+  ├── note: number
+  ├── commentaire: string
+  └── class: string       ← legacy display class from old app
 ```
 
-### `follows` (owned by `user-service`)
+### `skus` (owned by `inventory-service`)
 
 ```
-follows/{followerId_followedId}   ← composite document ID for uniqueness
-  ├── followerId: string
-  ├── followedId: string
-  └── createdAt: timestamp
+skus/{skuId}
+  ├── id, code
+  ├── variationId: string
+  ├── productId: string          ← denormalised
+  ├── achatId: string            ← purchase order reference
+  └── qte: number
 ```
-
-Composite IDs let you check "does user A follow user B?" in a single document get, with no query needed.
 
 ---
 
 ## Denormalisation Strategy
 
-Firestore requires duplicating some data to avoid cross-collection reads. The key is to denormalise **only data that changes rarely**.
-
-| Data to denormalise | Where it's copied | Update strategy |
-|--------------------|------------------|-----------------|
-| `username`, `avatarUrl` | Reviews, watchlists | Pub/Sub event when user updates profile |
-| `animeTitle`, `coverUrl` | Watchlists, reviews | Pub/Sub event when catalog is updated |
-| `averageRating` | Anime document | Pub/Sub event when review is created/updated |
-| `followersCount` | User document | Firestore transaction when follow is created |
+| Data to denormalise | Where it's copied | Update trigger |
+|--------------------|------------------|----------------|
+| `categorie.nom`, `categorie.code` | `products` document | Pub/Sub event when category is updated |
+| `theme.nom`, `theme.code` | `products` document | Pub/Sub event when theme is updated |
+| `client.nom`, `client.email` | `orders` document | Snapshot at order creation (never changes) |
+| `produit.nom`, `produit.prixUnite` | `orders.items[]` | Snapshot at order creation (price at time of purchase) |
+| `variation.nom` | `orders.items[]` | Snapshot at order creation |
+| `produit.nom` | `reviews` document | Pub/Sub event when product name changes |
+| `qte` on `products` | Aggregate from `skus` | Recalculated by inventory-service on SKU change |
 
 ---
 
@@ -169,19 +200,35 @@ Firestore automatically indexes every field for single-field queries. Composite 
 {
   "indexes": [
     {
-      "collectionGroup": "entries",
+      "collectionGroup": "products",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "status", "order": "ASCENDING" },
-        { "fieldPath": "completedAt", "order": "DESCENDING" }
+        { "fieldPath": "categorie.code", "order": "ASCENDING" },
+        { "fieldPath": "prixUnite", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "products",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "theme.code", "order": "ASCENDING" },
+        { "fieldPath": "prixUnite", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "orders",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "clientId", "order": "ASCENDING" },
+        { "fieldPath": "dateCommande", "order": "DESCENDING" }
       ]
     },
     {
       "collectionGroup": "reviews",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "animeId", "order": "ASCENDING" },
-        { "fieldPath": "createdAt", "order": "DESCENDING" }
+        { "fieldPath": "productId", "order": "ASCENDING" },
+        { "fieldPath": "note", "order": "DESCENDING" }
       ]
     }
   ]

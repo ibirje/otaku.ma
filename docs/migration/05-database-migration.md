@@ -177,18 +177,58 @@ public class DataValidator {
 
 ---
 
+## Migration Tool: `migration-sql-firestore`
+
+A **Spring Batch migration tool** already exists in `migration-sql-firestore/`. Use it instead of writing a Dataflow pipeline from scratch.
+
+### Current status of the tool
+
+| Component | Status |
+|-----------|--------|
+| `FirestoreConfig.java` | ✅ Complete — flexible credential loading |
+| `FirestoreItemWriter.java` | ✅ Complete — batch writes, retry with backoff |
+| `MigrationApplication.java` | ✅ Complete — sequential job runner |
+| `BatchConfig.java` | ⚠️ Partial — readers/writers configured, job/step wiring incomplete |
+| `VerificationConfig.java` | ⚠️ Partial — structure exists, job logic needs review |
+| Model classes (18) | ✅ Complete — all key entities mapped |
+| Readers (12) | ✅ Complete for: Product, Admin, AdminRole, AdminDroit, Categorie, Theme, Client, Commande, AchatStock, SKU, Attribut, Fournisseur |
+| Missing readers | ❌ CommandeItem, AchatStockItem, VariationOption, ClientAddress, ClientLogin, ClientPending, Avis, Casse, Perte |
+
+### What needs to be done to complete the tool
+
+1. **Complete `BatchConfig.java`** — define the job steps wiring each reader to the Firestore writer
+2. **Add missing readers** for the 9 tables above
+3. **Add skip/fault-tolerance policies** in batch steps
+4. **Document Firestore collection names** — use same names as defined in `04-database-architecture.md`
+5. **Test with a staging DB** before running on production data
+
+### Running the tool
+
+```bash
+cd migration-sql-firestore
+cp .env.template .env
+# fill in .env with your DB and Firestore credentials
+
+# Run migration
+./run.sh
+# or on Windows:
+./run.bat
+```
+
+---
+
 ## Service-by-Service Migration Order
 
-Align with the backend microservice migration order:
+Based on the real otaserver domain (35 SQL tables):
 
-| Order | Service | Collections to migrate |
-|-------|---------|----------------------|
-| 1 | `auth-service` | `auth_tokens` (minimal data, best to start) |
-| 2 | `catalog-service` | `animes`, `games`, `genres`, `studios` |
-| 3 | `user-service` | `users`, `user_settings`, `follows` |
-| 4 | `list-service` | `watchlists` |
-| 5 | `review-service` | `reviews`, `ratings`, `comments` |
-| 6 | `notification-service` | `notifications` |
+| Order | Service | Firestore Collections | Source Tables |
+|-------|---------|----------------------|---------------|
+| 1 | `auth-service` | `admins`, `admin_roles`, `admin_droits`, `admin_tokens` | `admin`, `admin_role`, `admin_droit`, `admin_roledroit`, `token` |
+| 2 | `catalog-service` | `categories`, `themes`, `products`, `attributes` | `categorie`, `theme`, `produit`, `variation`, `variationoption`, `attribut`, `optionattribut` |
+| 3 | `user-service` | `clients`, `client_addresses`, `client_pending` | `client`, `client_login`, `client_adresse`, `client_pending`, `client_session` |
+| 4 | `order-service` | `orders`, `couriers` | `commande`, `commandeitem`, `coursier` |
+| 5 | `inventory-service` | `purchase_orders`, `skus`, `suppliers` | `achatstock`, `achatstockitem`, `sku`, `fournisseur`, `casse`, `perte` |
+| 6 | `review-service` | `reviews` | `avis` |
 
 ---
 
@@ -219,18 +259,22 @@ Set up alerts for:
 ## Checklist
 
 - [ ] Export full Cloud SQL backup before starting (snapshot)
-- [ ] Design Firestore schema (see `04-database-architecture.md`)
-- [ ] Write and test SQL → Firestore transformer for each collection
-- [ ] Run initial backfill job (Dataflow or Spring batch)
-- [ ] Run validation tool — confirm mismatches = 0
-- [ ] Deploy `auth-service` in dual-write mode
+- [ ] Complete `BatchConfig.java` — wire all job steps
+- [ ] Add missing readers: CommandeItem, AchatStockItem, VariationOption, ClientAddress, ClientLogin, Avis, Casse, Perte
+- [ ] Add skip/fault-tolerance policies in batch config
+- [ ] Configure `.env` with real DB + Firestore credentials
+- [ ] Run migration tool against staging database
+- [ ] Run verification job — confirm mismatches = 0
+- [ ] Deploy `auth-service` in dual-write mode (SQL + Firestore)
 - [ ] Monitor dual-write for 1 week
 - [ ] Cut reads to Firestore for `auth-service`, validate 2 weeks
-- [ ] Retire SQL `auth` tables
-- [ ] Repeat for `catalog-service`
-- [ ] Repeat for `user-service`
-- [ ] Repeat for `list-service`, `review-service`, `notification-service`
-- [ ] All services reading from Firestore only
+- [ ] Retire SQL `admin` / `token` tables
+- [ ] Repeat for `catalog-service` (products, categories, themes, variations)
+- [ ] Repeat for `user-service` (clients, addresses)
+- [ ] Repeat for `order-service` (commandes, commandeitems, coursiers)
+- [ ] Repeat for `inventory-service` (achatstock, sku, fournisseur)
+- [ ] Repeat for `review-service` (avis)
+- [ ] All 35 SQL tables migrated, all services reading Firestore only
 - [ ] Cloud SQL decommissioned (keep backups 30 days)
 
 ---
