@@ -1,0 +1,19 @@
+<div class="col-lg-offset-1 col-xs-12 col-sm-12 col-md-12 col-lg-10" style="margin-bottom: 20px;">
+  <div *ngFor="let item of types; let pi = index">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 15px;"></div>
+    <app-block [index]="pi+4" [link]="item.parent.link" (click)="urlChanged()"
+      [cols]="'col-xs-12 col-sm-12 col-md-12 col-lg-12'">
+      <div contenu>
+        <p>{{item.parent.nom}}</p>
+      </div>
+    </app-block>
+
+    <app-block *ngFor="let type of item.childs; let i = index" [index]="i" [link]="type.link" (click)="urlChanged()">
+      <div contenu>
+        <p>{{type.nom}}</p>
+        <img *ngIf="type.smallImage" src="{{type.smallImage}}" />
+      </div>
+    </app-block>
+  </div>
+
+</div>

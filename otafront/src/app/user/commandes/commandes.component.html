@@ -1,0 +1,12 @@
+<div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <app-infoblocks (clicked) = "urlchanged($event)"></app-infoblocks>
+</div>
+<div class = "col-lg-offset-1 col-md-offset-1 col-sm-offset-4 col-xs-offset-3 col-lg-2 col-md-3 col-sm-4 col-xs-6">
+    <app-input [titre] = "'Code'" [(ngModel)] = "code"></app-input>
+</div>
+<div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12 round-border">
+    <app-commandes-liste-item *ngFor = "let cmd of commandes" [commande] = "cmd" (detailsClick) = "showDetails($event)"></app-commandes-liste-item>
+</div>
+
+<app-details-commande #detailsCommande>  
+</app-details-commande>

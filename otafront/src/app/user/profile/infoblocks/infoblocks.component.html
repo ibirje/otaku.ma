@@ -1,0 +1,14 @@
+<div style="padding: 10px;">
+    <app-block [cols] = "'col-md-4 col-lg-4 col-sm-6 col-xs-6'" [color] = "'blue-block'" [link] = "'/user/commandes'" (click) = "urlChanged()">
+      <div contenu>Commandes</div>
+    </app-block>
+    <app-block [cols] = "'col-md-4 col-lg-4 col-sm-6 col-xs-6'" [color] = "'pistache-block'" [link] = "'/user/commandes/attente-denvoi'" (click) = "urlChanged()">
+      <div contenu>Expéditions en attente</div>
+    </app-block>
+    <app-block [cols] = "'col-md-4 col-lg-4 col-sm-6 col-xs-6'" [color] = "'orange-block'" [link] = "'/user/commandes/attente-livraison'" (click) = "urlChanged()">
+      <div contenu>Livraisons en attente</div>
+    </app-block>
+    <app-block [cols] = "'col-md-4 col-lg-4 col-sm-6 col-xs-6'" [color] = "'pink-block'" [link] = "'/user/notifications'"  disabled hidden>
+      <div contenu>Messages</div>
+    </app-block>
+</div>

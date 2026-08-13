@@ -1,0 +1,23 @@
+<div style = "position:relative;float:left;" >
+  <div class="btn-group btn-group-toggle" role="group" data-toggle="buttons">
+    <div class="btn-group">
+      <label class=" control-label" style="padding: 2px 6px;padding-left: 0px;">Trier par :</label>
+    </div>
+  
+    <label (click) = "triClick('pertinence')" class="btn btn-default size-small" [ngClass]="tri === 'pertinence' ? 'active' : ''">
+      Pertinence <span class="caret" ></span>
+    </label>
+    <label (click) = "triClick('commandes')" class="btn btn-default size-small" [ngClass]="tri === 'commandes' ? 'active' : ''">
+      Commandes <span class="caret" ></span>
+    </label>
+    
+     <label (click) = "triClick('date')" class ="btn btn-default size-small" [ngClass]="tri === 'date' ? 'active' : ''">
+      Date <span class="caret" ></span>
+    </label>
+    
+    <label (click) = "triClick('prix')" class = "btn btn-default size-small" [ngClass]="tri === 'prix' ? 'active' : ''">
+      Prix <span class="caret caret-up"> </span>
+    </label>
+  </div>
+</div>
+<app-rangeslider (changedEvent) = "prixRangeEvent($event)"></app-rangeslider>

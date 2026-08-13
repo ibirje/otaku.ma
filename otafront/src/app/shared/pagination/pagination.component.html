@@ -1,0 +1,21 @@
+<div *ngIf = "rangemax && rangemin && page" class="btn-group btn-group-toggle" role="group" data-toggle="buttons" style="float:right">
+  <label class ="btn btn-default size-small" 
+     [ngClass]="page > _minpage ? '' : 'disabled' ">
+      <input type="radio" name="options" autocomplete="off" 
+      (click) = "gopage(page-1)"><
+    </label>
+
+    <label *ngFor="let in of counter(rangemax-rangemin+1) ;index as i" 
+    class ="btn btn-default size-small" 
+    [ngClass]="i + rangemin === page ? 'active' : '' ">
+      <input type="radio" name="options"  autocomplete="off" 
+      (click) = "gopagenombre(i)">{{i + rangemin}}
+    </label>
+    
+    <label  class ="btn btn-default size-small"
+     [ngClass]="page < _maxpage ? '' : 'disabled' ">
+      <input type="radio" name="options" autocomplete="off" 
+      (click) = "gopage(page+1)" >>
+    </label>
+    
+</div>

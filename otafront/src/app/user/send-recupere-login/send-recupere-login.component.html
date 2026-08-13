@@ -1,0 +1,28 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+  <a routerLink = "/"> <img src="../../assets/img/logo.png" alt="Otaku.ma" style="height: 50px; width:300px"/></a>
+</div>
+
+<div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1 col-lg-6 col-md-6 col-sm-8 col-xs-10 round-border">
+  <div class="col-md-12" style="padding: 20px;">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" *ngIf="!recupEnvoyee">
+
+      <div class="form-group">
+        <label for="pseudo">Envoyez un mail de récupération à votre adresse email, pour changer votre mot de passe.</label>
+        <input type="text" formControlName="pseudo" class="form-control" placeholder="Adresse email" [ngClass]="{ 'is-invalid': submitted && f.pseudo.errors }" />
+        <div *ngIf="submitted && f.pseudo.errors" class="invalid-feedback">
+          <div class="alert alert-danger" style="margin:10px 0; padding:5px 15px;" role="alert" *ngIf="f.pseudo.errors.notFoundMail">Aucune compte associé à cette adresse email.</div>
+        </div>
+      </div>
+
+          
+      <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">Envoyer</button>
+      </div>
+    </form>
+
+    <div class="alert alert-success" style="margin:10px 0; padding:5px 15px;" role="alert" *ngIf="recupEnvoyee">
+      Un mail de récupération a été envoyé à {{recupEnvoyee}}.
+    </div>
+
+  </div>
+</div>

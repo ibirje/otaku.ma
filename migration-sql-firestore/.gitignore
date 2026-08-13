@@ -1,0 +1,57 @@
+# Credentials
+otakuma-v2-firebase-adminsdk-6bcdf-fecc5349e9.json
+src/main/resources/firebase-credentials.json
+
+# Environment files
+.env
+*.env
+set-env.bat
+set-env.ps1
+
+# Firebase credentials
+*firebase-adminsdk*.json
+
+# Compiled class file
+*.class
+target/
+
+# Log file
+*.log
+logs/
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# IDE files
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+.project
+.classpath
+.settings/
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/

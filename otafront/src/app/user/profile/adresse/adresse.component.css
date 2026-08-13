@@ -1,0 +1,99 @@
+
+.disabled, .bbtn:disabled, .bbtn[disabled] {
+    opacity : .5;
+    cursor  : not-allowed;
+}
+.disabled:active, .disabled:hover {
+    background-color :rgb(121, 228, 255); 
+    color            :rgb(56, 56, 56); 
+}
+.alert {
+    margin  : 10px 0; 
+    padding : 5px 15px;
+}
+
+.notexpanded, .notexpanded p, .notexpanded p span, .notexpanded .bbtn,.notexpanded div, .notexpanded .alert {
+    font-size  : 0;
+    margin     : 0;
+    opacity    : 0;
+    padding    : 0;
+    transition: opacity .25s, font-size .5s .25s, margin .5s .25s, padding .5s .25s;
+}
+.expanded {
+    transition: font-size .25s, margin .25s, padding .25s, opacity .5s .25s;
+}
+.notexpanded .form-control {
+
+    font-size  : 0;
+    margin     : 0;
+    opacity    : 0;
+    padding    : 0;
+    height: 0px;
+    width: 0px;
+    transition: opacity .25s, height 1s 0.15s, width .6s;
+}
+.expanded .form-control {
+    height :20px;
+    transition: font-size .25s, margin .25s, padding .25s, opacity .5s .25s, height 1s 0.15s , width .6s;
+}
+.left {
+    width: 48%; 
+    margin : 5px 0;
+}
+.right {
+    width: 48%; 
+    float: left;
+    margin-right: 5px; 
+}
+@media (max-width: 767px) {
+    .left { width: 100%; margin : 5px 0; }
+    .right { width: 100%; margin : 5px 0; float: none; }
+}
+
+
+  .selected-box .bbtn {
+    background-color:rgb(126, 255, 121); 
+    color:rgb(56, 56, 56); 
+  }
+  
+.selected-box .titre {
+    background-color: rgb(154, 255, 136);
+  }
+  
+  .modifier:hover, .selectionner:hover {
+    background-color:#3A6FFF; 
+    color:#FFFFFF;
+  }
+  
+  .selected-box .modifier:hover, .selected-box .selectionner:hover {
+    background-color:rgb(27, 146, 45); 
+    color:#FFFFFF;
+  }
+    
+  input[type="button"]:active, button:active, a:active, .modifier:active, .selectionner:active 
+  { 
+      background-color: rgb(218, 248, 255);
+      color: rgb(0, 38, 255);
+  }
+    
+  .selected-box input[type="button"]:active, .selected-box button:active, .selected-box a:active,
+  .selected-box .modifier:active, .selected-box .selectionner:active 
+  {
+      background-color: rgb(201, 255, 196);
+      color: rgb(0, 204, 61);
+  }
+  
+.notexpanded *{
+    font-size   : 0; margin      : 0; opacity     : 0; padding     : 0; line-height : 0; border      : 0;
+    transition  : opacity .25s, font-size .5s .25s, margin .5s .25s, padding .5s .25s, margin .5s .25s, line-height .5s .25s, border .5s .25s;
+}
+.expanded {
+    transition : opacity .5s .25s, font-size .25s, margin .25s, padding .25s, margin .25s, line-height .25s, border .25s;
+}
+.notexpanded .form-control {
+    font-size  : 0; margin     : 0; opacity    : 0; padding    : 0; height     : 0px; width      : 0px;
+    transition : opacity .25s, height 1s 0.15s, width .6s;
+}
+.expanded .form-control {
+    transition : opacity .5s .25s, font-size .25s, margin .25s, padding .25s, margin .25s, line-height .25s, border .25s;
+}

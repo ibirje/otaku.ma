@@ -1,0 +1,221 @@
+.typegroup {
+    display: inline-block;
+    text-align: center;
+    display: block;
+}
+
+.categ-parent {
+    font-weight: bold;
+}
+
+.categ-sousparent {
+    font-weight: 600;
+}
+
+.dropbtn {
+    background-color: rgb(0, 150, 236);
+    color: #FFFFFF;
+    padding: 8px 16px;
+    min-width: 220px;
+    border: 2px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 40, 0.5), 0 6px 20px 0 rgba(0, 0, 40, 0.5);
+    border-radius: 4px;
+}
+
+.dropbtn:hover {
+    background-color: rgb(121, 228, 255);
+    color: rgb(56, 56, 56);
+    border-radius: 0px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+a:hover,
+.content-btn:hover,
+input[type="button"]:hover,
+button:hover {
+    background-color: rgb(121, 228, 255);
+    color: rgb(0, 0, 0);
+}
+
+input[type="button"]:active,
+button:active,
+a:active,
+.dropbtn:active {
+    background-color: rgb(218, 248, 255);
+    color: rgb(0, 38, 255);
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+    margin-top: 5px;
+}
+
+.catropdown-content {
+    display: none;
+    position: absolute;
+    margin-top: -1px;
+    min-width: 220px;
+    z-index: 1019;
+    padding: 10px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    border: 2px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 40, 0.5), 0 6px 20px 0 rgba(0, 0, 40, 0.5);
+    background-color: rgb(255, 255, 255);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    margin-top: -1px;
+    min-width: 220px;
+    z-index: 1019;
+    padding: 10px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    border: 2px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 40, 0.5), 0 6px 20px 0 rgba(0, 0, 40, 0.5);
+    background-color: rgb(255, 255, 255);
+}
+
+a,
+.content-btn {
+    background-color: rgb(255, 255, 255);
+    color: rgb(56, 56, 56);
+    padding: 4px 6px;
+    text-decoration: none;
+    display: flex;
+    border: none;
+    align-self: center;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .catropdown-content {
+    display: block;
+}
+
+@media (min-width: 1281px) and (max-width: 1921px) {
+    .dropbtn,
+    .catropdown-content {
+        min-width: 200px;
+    }
+    .dropbtn {
+        padding: 8px 16px;
+        border-radius: 4px;
+    }
+    .dropdown-content {
+        min-width: 200px;
+    }
+    a {
+        padding: 3px 5px;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .dropbtn,
+    .catropdown-content {
+        min-width: 180px;
+    }
+    .dropbtn {
+        padding: 7px 14px;
+        border-radius: 4px;
+    }
+    .dropdown-content {
+        min-width: 180px;
+    }
+    a {
+        padding: 2px 4px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .dropbtn,
+    .catropdown-content {
+        min-width: 120px;
+    }
+    .catropdown-content {
+        padding: 8px;
+    }
+    .dropbtn {
+        padding: 6px 12px;
+        border-radius: 3px;
+    }
+    .dropdown-content {
+        min-width: 150px;
+        padding: 4px;
+    }
+    a {
+        padding: 2px 4px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .dropbtn {
+        min-width: 100px;
+    }
+    .catropdown-content {
+        min-width: 100px;
+        padding: 6px;
+    }
+    .dropbtn {
+        padding: 5px 10px;
+        border-radius: 3px;
+    }
+    .dropdown-content {
+        min-width: 120px;
+        padding: 4px;
+    }
+    a {
+        padding: 1px 4px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .dropbtn,
+    .catropdown-content {
+        min-width: 80px;
+    }
+    .catropdown-content {
+        padding: 4px;
+    }
+    .dropbtn {
+        padding: 4px 8px;
+        border-radius: 2px;
+    }
+    .dropdown-content {
+        min-width: 120px;
+        padding: 4px;
+    }
+    a {
+        padding: 1px 4px;
+    }
+}
+
+@media (max-width: 320px) {
+    .dropbtn {
+        min-width: 60px;
+    }
+    .catropdown-content {
+        min-width: 80px;
+        padding: 2px;
+    }
+    .dropbtn {
+        padding: 3px 6px;
+        border-radius: 2px;
+    }
+    .dropdown-content {
+        min-width: 100px;
+        padding: 2px;
+    }
+    a {
+        padding: 1px 4px;
+    }
+}

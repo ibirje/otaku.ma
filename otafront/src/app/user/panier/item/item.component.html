@@ -1,0 +1,58 @@
+<div (click)="itemClicked()" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 round-border"
+  style="display: inline-block; padding: 5px 2px;" *ngIf="item"
+  [ngClass]="{'highlight': selected,'empty': !notEmptyQte }">
+
+  <div class="check" *ngIf="isAchatVisible && notEmptyQte">
+    <input type="checkbox" [(ngModel)]="selected">
+    <span class="checkmark"></span>
+  </div>
+
+
+  <a routerLink="{{link}}">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 base-margin-top" style="padding: 0;"
+      *ngIf="item.variation && item.variation.thumbnail; else varnoimg">
+      <img src="{{item.variation.thumbnail}}" class="image" />
+    </div>
+
+    <ng-template #varnoimg>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 base-margin-top" style="padding: 0;" *ngIf="item.produit">
+        <img src="{{item.produit.thumbnail}}" class="image" />
+      </div>
+    </ng-template>
+  </a>
+
+
+  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7 base-margin-top" style="padding: 5px">
+    <p *ngIf="item.produit">{{item.produit.nom}}.</p>
+    <p *ngIf="item.variation">option : {{item.variation.nom}}.</p>
+  </div>
+
+  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3" style="display:block; padding: 5px 0">
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 5px 0">
+      <span class="prix" style="float: left;">{{prix}} DH</span>
+      <span class="discount" style="float: left; margin-left: 4px; margin-top: -2px"
+        *ngIf="isPromo">-{{item.produit.reduc | number: '.0-0'}}%</span>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
+      <app-spinner [valeur]="qte" (quantiteChanged)="quantiteChanged($event)" (click)="handleClick($event)"
+        style="float: left"></app-spinner>
+      <span class="gray" style="float: left; margin-left: 2px;">pièces</span>
+    </div>
+
+    <div *ngIf="isAchatVisible && notEmptyQte" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 5px 0">
+      <button class="btn acheternow size-sous-titre" (click)="acheterClick($event)" style="float: left">Acheter</button>
+    </div>
+
+    <div *ngIf="!notEmptyQte" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+      style="color: rgb(16, 16, 156);padding: 10px 0">
+      Stock épuisé
+    </div>
+
+  </div>
+
+  <button class="delete" (click)="deleteClicked($event)">
+    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+  </button>
+</div>

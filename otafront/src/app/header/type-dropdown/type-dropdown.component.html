@@ -1,0 +1,40 @@
+<ng-container *ngIf = "sortedcategories; else gofortheme" >
+    <div class="dropdown">
+        <button class="dropbtn size-sous-titre" style ="box-shadow: none;" routerLink="/categories"> Catégories <span class="caret"> </span></button>
+        <div class="catropdown-content">
+            <div *ngFor="let item of sortedcategories" class="typegroup">
+
+                <ng-container *ngIf = "item.parent.code.length < 5; else NotParent" >
+                    <a routerLink="{{item.parent.link}}" class="categ-parent" >{{item.parent.nom}}</a>
+                </ng-container>
+
+                <ng-template #NotParent>
+                    
+                    <ng-container *ngIf = "item.childs && item.childs.length > 0; else HasNoSubCateg" >
+                        <app-subtype-dropdown  [item] = "item" ></app-subtype-dropdown>
+                    </ng-container>
+
+                    <ng-template #HasNoSubCateg>
+                        <a routerLink="{{item.parent.link}}" class="categ-sousparent" >{{item.parent.nom}}</a>
+                    </ng-template>
+
+                </ng-template>
+                
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #gofortheme>
+    <ng-container *ngIf = "sortedthemes" >
+        <div class="dropdown">
+            <button class="dropbtn size-sous-titre" routerLink="/themes"> Themes <span class="caret"> </span></button>
+            <div class="dropdown-content">
+                <div *ngFor="let item of sortedthemes" class="typegroup">
+                    <a  routerLink="{{item.parent.link}}" class="categ-parent" >{{item.parent.nom}}</a>
+                    <a *ngFor="let child of item.childs" style="color: #3A6FFF;" routerLink="{{child.link}}">{{child.nom}}</a>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>

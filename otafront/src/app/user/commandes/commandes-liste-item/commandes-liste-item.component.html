@@ -1,0 +1,94 @@
+<div *ngIf = "commande; else chargement" class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12 round-border" style="padding: 0;border-style: double">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 commande-head">
+    
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 lowpadleft">
+      <span style="float: left">
+        Date de commande : {{commande.commande.textDateCommande}}
+      </span>
+    </div> 
+        
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 lowpadright">
+      <span style="float: right">
+        Code : <span style="color: #005CFF">{{commande.commande.code}}</span>
+      </span>
+    </div> 
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 5px 15px;">
+      <div style = "border-top: dashed 1px rgb(101, 150, 175)"></div>
+    </div>
+  
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 lowpadleft">
+      <span style="float: left">
+        Etat <br/>
+        <span *ngIf = "commande.commande.etat === 'ACCEPTATION'" style="color: rgb(48, 100, 0)">En attente d'acceptation...</span>
+        <span *ngIf = "commande.commande.etat === 'PREPARATION'" style="color: rgb(0, 100, 78)">Commande accéptée.</span>
+        <span *ngIf = "commande.commande.etat === 'ENVOI'"       style="color: rgb(0, 85, 100)">En préparation...</span>
+        <span *ngIf = "commande.commande.etat === 'ENVOYEE'"     style="color: rgb(0, 100, 75)">Colis Envoyé.</span>
+        <span *ngIf = "commande.commande.etat === 'COMPLETE'"    style="color: darkgreen">Complète.</span>
+        <!-- commandes interrompues -->
+        <span *ngIf = "commande.commande.etat === 'ANNULEE'"     style="color: rgb(92, 32, 32)">Commande annulée.</span>
+        <span *ngIf = "commande.commande.etat === 'REFUSEE'"     style="color: rgb(139, 0, 0)">Commande refusée.</span>
+      </span>
+    </div> 
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 lowpadright">
+      <span style="float: right">
+        Prix total <br/>
+        <span style="color: #005CFF">{{commande.commande.prixPieces + commande.commande.prixLivraison}}DH</span>
+      </span>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 lowpadleft">
+      <button class="bbtn" style="float: left" (click) = "showDetails()">Détails</button>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 lowpadright">
+      <button *ngIf = "commande.commande.etat ==='ACCEPTATION'" class="bbtn" style="float: right" (click) = "annulerClick()">
+        Annuler
+      </button>
+    </div>
+
+  </div>
+  
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px;">
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 items-colonne" >Image</div>
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-6 items-colonne" >Nom</div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 items-colonne" >Prix</div>
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 items-colonne" > - </div>
+  </div>
+
+<!--
+    code: string;
+    nom: string;
+    thumbnail: string;
+    prixUnite: number;
+    qte: number;
+-->
+  <div *ngFor = "let item of commande.items" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px;">
+
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2" style="padding: 0;">
+      <img src = "{{item.thumbnail}}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 5px;"/>
+    </div>
+  
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-6 " style="padding: 5px; text-align: left">
+      <p>{{item.nom}}</p>
+    </div>
+    
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding: 5px">
+      {{item.qte}} x <span  style="color: #005CFF">{{item.prixUnite}}DH</span>
+    </div>
+
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 " style="padding: 0">
+      <button class="bbtn" (click) = "ajouterPanier(item.code)"><span class="glyphicon glyphicon-plus"></span> Panier</button>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #chargement>
+  Chargement...
+</ng-template>
+
+<app-popup #panierPopup [titre] = "'Produit ajouté au panier'" [buttonText] = "'Panier'" (buttonClickedEvent) = "goToPanier()"></app-popup>
+
+<app-confirm-popup #annulerPopup [titre] = "'annuler commande'" (buttonClickedEvent) = "annulerBtn1Clicked()" (button2ClickedEvent) = "annulerBtn2Clicked()">  
+</app-confirm-popup>

@@ -1,0 +1,13 @@
+<ng-container *ngIf = "item" >
+
+  <div class="dropdown">
+
+    <button routerLink="{{item.parent.link}}" class="dropbtn">{{item.parent.nom}}</button>
+
+    <div class="dropdown-content">
+        <a *ngFor="let child of item.childs" routerLink="{{child.link}}" >{{child.nom}}</a>
+    </div>
+
+  </div>
+
+</ng-container>

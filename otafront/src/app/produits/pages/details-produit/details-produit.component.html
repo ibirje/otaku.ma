@@ -1,0 +1,48 @@
+<div class="col-md-offset-1 col-lg-offset-1 col-md-10 col-lg-10 col-sm-12 col-xs-12" style="margin-top: 5px;">
+
+  <div style="text-align: left">
+    <a *ngFor="let categorie of categories" routerLink= "{{ categorie.link }}"> > {{ categorie.nom }} </a>  
+
+    <ng-container *ngIf="theme && theme.link">
+      <span style="margin-left:10px;margin-right:8px" > dans </span>
+      <a routerLink="{{theme.link}}"  > {{theme.nom}} </a>
+    </ng-container>
+
+  </div>
+</div>
+
+<div  id="container" >
+
+  <div id="main" class="round-border col-md-offset-1 col-lg-offset-1 col-md-10 col-lg-10 col-sm-12 col-xs-12">
+
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 " >
+      <app-produit-slideshow #slideshow 
+        [produit] = "produit" 
+        [variations] = "variations">
+      </app-produit-slideshow>
+
+      <app-produit-infos #infos
+        [produit] = "produit" 
+        [variations] = "variations" 
+        [attributs] = "attributs"
+        (selectionChangedEvent) = "selectionChanged($event)"> 
+      </app-produit-infos>
+    </div>
+    
+    <div class="col-md-12 " >
+      <div class="col-md-12">
+        <app-produit-specifications 
+          [categories] = "categories" 
+          [theme] = "theme" 
+          [produit] = "produit" >
+        </app-produit-specifications>
+      </div>
+    </div>
+    
+     <!--
+      <app-produit-description>
+      <app-produit-suggestions>
+      -->
+
+  </div>
+</div>

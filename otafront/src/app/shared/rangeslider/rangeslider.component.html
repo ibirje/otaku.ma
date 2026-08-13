@@ -1,0 +1,18 @@
+<div (window:mouseup)="sliderMouseUp()" (window:touchup)="sliderMouseUp()"></div>
+<div class="btn-group btn-group-toggle">
+
+    <div class="flex">
+        <span class="currency">DH</span>
+        <input type="number" placeholder="min" [(ngModel)] = "minprix" [ngClass] = "minprix === lowerlimit ? 'hideprix' : ''" class="size-small prixtext mintext" (keyup) = "onMinKeyup($event)">
+    </div>
+
+    <div class="slidecontainer" padding = "padding:4px;">
+        <range-slider [min]="min" [max]="max" [toolTips]="[false,false]" [step] = "0.1" [(ngModel)]="twoWayRange"  (onRangeChange) = "sliderDragged()"></range-slider>
+    </div>
+    
+    <div class="flex">
+        <span class="currency currency-max">DH</span>
+        <input type="number" placeholder="max" [(ngModel)] = "maxprix" [ngClass] = "maxprix === upperlimit ? 'hideprix' : ''" class="size-small prixtext maxtext" (keyup) = "onMaxKeyup($event)">
+    </div>
+</div>
+

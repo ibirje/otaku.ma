@@ -1,0 +1,38 @@
+<div class="searchbar"  > 
+  <div class="search-container">
+    <div class="btn-group " role="group" aria-label="...">
+      <div class="btn-group">
+        <div class="btn-group">
+          <input [(ngModel)] = "text"  (keyup) ="chercher($event)" spellcheck="false" type="text" placeholder="Rechercher.." name="search" class="size-small">
+        </div>
+        <button type="submit" class="srchbutton" routerLink = "/produits/recherche/{{text}}">
+          <img src="../../assets/img/search.png" alt="chercher" class="searchimg" />
+        </button>
+      </div>
+    </div>
+    <app-searchpopup [text] = "text"></app-searchpopup>
+  </div>
+  
+</div>
+
+<div style =" float: left">
+
+  <button class="smallbtn panier" routerLink ="/user/panier" >      
+    <img src="../../../assets/img/chest.png" alt="chercher" alt="panier"/>
+    <span *ngIf ="user" class="label label-success">{{user.panierCount}}</span>
+  </button>
+
+  <button class="smallbtn favoris" routerLink ="/user/favoris" disabled style="opacity: 0">
+      <span class="glyphicon glyphicon-heart size-titre"></span>
+  </button>
+
+</div>
+
+<!-- 
+  liste recherche popup
+  show if textfocus
+  hide if click outside text
+
+
+
+-->

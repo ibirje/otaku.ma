@@ -1,0 +1,184 @@
+<ng-container *ngIf="openPopup && commande">
+  <div class="modal" (click)="closePopup()">
+
+    <div class="modal-content" (click)="handleClick($event)">
+
+      <div class="modal-header">
+        <span class="close" (click)="closePopup()">&times;</span>
+        <ng-container>
+          <span class="size-titre">Details de la commande {{commande.code}}</span>
+          <span class="size-sous-titre"> - {{commande.textDateCommande}}</span>
+        </ng-container>
+      </div>
+
+      <div class="modal-body" style="padding-left:2px;">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+          style="margin: 5px; vertical-align: middle;border-bottom: 1px dashed rgb(149, 149, 149)">
+
+          <!-- ------------------------------------------- Acceptation ------------------------------------------ -->
+          <div *ngIf="commande.textDateAccepte" class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0;">
+            <div class="row track-text">{{commande.textDateAccepte}}</div>
+            <img class="row track-img" src="https://images2.imgbox.com/d3/8a/5bKrbaHh_o.jpg" />
+            <div class="row track-text">Commande accéptée.</div>
+          </div>
+          <div *ngIf="!commande.textDateAccepte" class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0;">
+            <div class="row track-text-disabled">-</div>
+            <img class="row track-img" src="https://images2.imgbox.com/52/cf/2rKWqdfE_o.jpg" />
+            <div class="row track-text-disabled">En attente d'acceptation...</div>
+          </div>
+          <span class="glyphicon glyphicon-arrow-right col-xs-1 col-sm-1 col-md-1 col-lg-1 empty-arrow"></span>
+          <!-- ----------------------------------------- Préparation ------------------------------------------- -->
+          <div *ngIf="commande.textDatePrepare" class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0;">
+            <div class="row track-text">{{commande.textDateAccepte}}</div>
+            <img class="row track-img" src="https://images2.imgbox.com/34/cf/49Qqx5o0_o.jpg" />
+            <div class="row track-text">Commande préparée.</div>
+          </div>
+          <div *ngIf="!commande.textDatePrepare" class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0;">
+            <div class="row track-text-disabled">-</div>
+            <img class="row track-img" src="https://images2.imgbox.com/93/ea/Ql9GWBOS_o.jpg" />
+            <div class="row track-text-disabled">En attente de preparation...</div>
+          </div>
+          <span class="glyphicon glyphicon-arrow-right col-xs-1 col-sm-1 col-md-1 col-lg-1 empty-arrow"></span>
+          <!-- ------------------------------------------ Expedition ------------------------------------------ -->
+          <div *ngIf="commande.textDateEnvoye" class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0;">
+            <div class="row track-text">{{commande.textDateEnvoye}}</div>
+            <img class="row track-img" src="https://images2.imgbox.com/57/68/qWO12bNe_o.jpg" />
+            <div class="row track-text">Colis Envoyé.</div>
+          </div>
+          <div *ngIf="!commande.textDateEnvoye" class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0;">
+            <div class="row track-text-disabled">-</div>
+            <img class="row track-img" src="https://images2.imgbox.com/7b/f6/qvqwr0hZ_o.jpg" />
+            <div class="row track-text-disabled">En attente d'expédition...</div>
+          </div>
+          <span class="glyphicon glyphicon-arrow-right col-xs-1 col-sm-1 col-md-1 col-lg-1 empty-arrow"></span>
+          <!-- ------------------------------------------ FIN ------------------------------------------ -->
+          <div *ngIf="commande.textDateFin" class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0;">
+
+            <ng-container *ngIf="commande.etat === 'COMPLETE'">
+              <div class="row track-text">{{commande.textDateFin}}</div>
+              <img class="row track-img" src="https://images2.imgbox.com/c4/46/qPcrQSqV_o.jpg" />
+              <div class="row track-text">Complète.</div>
+            </ng-container>
+
+            <ng-container *ngIf="commande.etat === 'REFUSEE'">
+              <div class="row track-text-err">{{commande.textDateFin}}</div>
+              <img class="row track-img" src="https://images2.imgbox.com/09/e3/WkvIIkcs_o.jpg" />
+              <div class="row track-text-err">Commande refusée.</div>
+            </ng-container>
+
+            <ng-container *ngIf="commande.etat === 'ANNULEE'">
+              <div class="row track-text-err">{{commande.textDateFin}}</div>
+              <img class="row track-img" src="https://images2.imgbox.com/09/e3/WkvIIkcs_o.jpg" />
+              <div class="row track-text-err">Commande annulée.</div>
+            </ng-container>
+
+          </div>
+          <div *ngIf="!commande.textDateFin" class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0;">
+            <div class="row track-text-disabled">-</div>
+            <img class="row track-img" src="https://images2.imgbox.com/af/0b/UFNxyd6U_o.jpg" />
+            <div class="row track-text-disabled">En attente de livraison...</div>
+          </div>
+        </div>
+
+        <!-- ------------------------------------------ NOTES ------------------------------------------ -->
+
+        <div *ngIf="commande.notes" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <span [ngClass]="commande.etat === 'REFUSEE' || commande.etat === 'ANNULEE'?'track-text-err':'track-text'">
+            {{commande.notes}}
+          </span>
+        </div>
+        <!-- ----------------------------------------- ADRESSE ----------------------------------------- -->
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+          style="padding: 0;padding-left : 10px; padding-bottom:10px;border-bottom: 1px dashed rgb(149, 149, 149)">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+            style="margin-top: 10px;background-color: rgb(0, 150, 236);">
+            <span class="size-titre" style="float: left; color:white">Adresse</span>
+          </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="text-align: left">
+            Nom : {{commande.nom}}
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="text-align: left">
+            Prénom : {{commande.prenom}}
+          </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="text-align: left">
+            Adresse 1 : {{commande.adresse1}}
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="text-align: left">
+            Adresse 2 : {{commande.adresse2? commande.adresse2 : 'vide'}}
+          </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="text-align: left">
+            Ville : {{commande.ville}}
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="text-align: left">
+            Téléphone : {{commande.telephone ? commande.telephone : 'vide'}}
+          </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="text-align: left">
+            Code postal : {{commande.codePostal}}
+          </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="text-align: left">
+            Méthode de livraison : {{commande.livraison}}
+          </div>
+
+        </div>
+
+        <div class="col-lg-offset-1 col-md-offset-0 col-lg-10 col-md-12 col-sm-12 col-xs-12"
+          style="padding-left: 5px; padding-right: 5px; padding-top:20px;text-align: left; margin-bottom: 50px;">
+
+          <div *ngFor="let item of items; let i = index">
+            <span class="col-lg-offset-1 col-md-offset-1 col-lg-8 col-md-8 col-sm-9 col-xs-8 size-small"
+              [ngClass]="i % 2 !== 0 ? 'color-a' : 'color-b'">{{item.nom}}</span>
+            <span class="col-lg-2 col-md-2 col-sm-3 col-xs-4 size-small color-prix"
+              [ngClass]="i % 2 !== 0 ? 'color-b' : 'color-a'">{{item.qte}} x {{item.prixUnite}} DH</span>
+          </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-12" style="margin-top: 20px;"></div>
+
+          <span class="col-lg-offset-1 col-md-offset-1 col-lg-8 col-md-8 col-sm-9 col-xs-8 size-medium color-a">Quantité
+            totale</span>
+          <span class="col-lg-2 col-md-2 col-sm-3 col-xs-4 size-medium color-b color-prix">{{commande.itemCount}}
+            pièces</span>
+
+          <span class="col-lg-offset-1 col-md-offset-1 col-lg-8 col-md-8 col-sm-9 col-xs-8 size-medium color-b">Prix
+            total des produits </span>
+          <span class="col-lg-2 col-md-2 col-sm-3 col-xs-4 size-medium color-a color-prix">{{commande.prixPieces}}
+            DH</span>
+
+          <span class="col-lg-offset-1 col-md-offset-1 col-lg-8 col-md-8 col-sm-9 col-xs-8 size-medium color-a">Prix
+            livraison</span>
+          <span class="col-lg-2 col-md-2 col-sm-3 col-xs-4 size-medium color-b color-prix">{{commande.prixLivraison}}
+            DH</span>
+
+          <span
+            class="col-lg-offset-1 col-md-offset-1 col-lg-8 col-md-8 col-sm-9 col-xs-8 size-titre color-b total-text">Prix
+            total</span>
+          <span
+            class="col-lg-2 col-md-2 col-sm-3 col-xs-4 size-titre color-a total-prix">{{commande.prixPieces + commande.prixLivraison}}
+            DH</span>
+
+        </div>
+
+
+        <!--
+  add list items
+
+  add methode livraison,code postal to sql ,gsql, server
+  add code postal to adresse
+  add schedule update types change smallImage from random produit
+-->
+
+
+      </div>
+
+      <div class="modal-footer">
+
+      </div>
+
+    </div>
+  </div>
+</ng-container>

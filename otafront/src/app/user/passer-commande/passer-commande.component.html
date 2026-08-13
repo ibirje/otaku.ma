@@ -1,0 +1,102 @@
+<div *ngIf="!hasNoItems" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" 
+  style="margin-top: 10px; margin-bottom: 5px;padding-top : 0;background-color: rgb(0, 150, 236)">
+    <span class=" size-titre" style="float: left; color:white">1. Adresse</span>
+  </div>
+  
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0px;">
+    <app-select-adresse #selectadresse></app-select-adresse>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px; margin-bottom: 5px;padding-top : 0px;background-color: rgb(0, 150, 236)">
+    <span class=" size-titre" style="float: left; color:white">2. Produits</span>
+  </div>
+
+  <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1  col-lg-10 col-md-10 col-sm-10 col-xs-12" style="padding-left: 5px; padding-right: 5px;">
+    <app-item *ngFor = "let item of items" [item] = "item" (selectionChangedEvent) = "onSelectionChanged()" 
+      (deleteEvent) = "onDelete($event)" [isAchatVisible] = "false ">
+    </app-item>
+  </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin-top: 20px; margin-bottom: 5px;padding-right: 5px;padding-left: 5px;">
+      <div class="col-lg-offset-3 col-md-offset-2 col-lg-8 col-md-10 col-sm-12 col-xs-12" style="padding-top : 0;background-color: rgb(0, 150, 236)">
+          <span class=" size-titre" style="float: left; color:white">3. Méthode de paiement</span>
+      </div>
+      
+      <div class="col-lg-offset-3 col-md-offset-2 col-lg-8 col-md-10 col-sm-12 col-xs-12 round-border" style="padding-top: 5px;">
+        <label (click) = "isVB = false"  [ngClass]="{'active': !isVB}" class = "btn btn-default size-medium col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 6px 10px;">
+          <span class="glyphicon size-titre" [ngClass]="isVB? 'glyphicon-unchecked':'glyphicon-check'" style="float: left;color: rgb(38, 96, 255)"></span>
+          Paiement à la livraison.
+        </label>
+
+        <label (click) = "isVB = true" [ngClass]="{'active': isVB}" class = "btn btn-default size-medium col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 6px 10px;">
+          <span class="glyphicon size-titre" [ngClass]="!isVB? 'glyphicon-unchecked':'glyphicon-check'" style="float: left;color: rgb(38, 96, 255)"></span>
+          Virement banquaire.
+        </label>
+      </div>
+    </div>
+    
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin-top: 20px; margin-bottom: 5px;padding-right: 5px;padding-left: 5px;">
+      
+      <div class="col-lg-offset-1 col-lg-8 col-md-10 col-sm-12 col-xs-12" style="padding-top : 0;background-color: rgb(0, 150, 236)">
+        <span class="size-titre" style="float: left; color:white">4. Méthode de livraison</span>
+      </div>
+
+      <div class="col-lg-offset-1 col-lg-8 col-md-10 col-sm-12 col-xs-12 round-border" style="padding-top: 5px;">
+        <div *ngFor = "let liv of coursiers">
+          <div *ngIf = "liv.codes.indexOf(codePostalCourant) > -1 || liv.codes.indexOf('any') > -1 ">
+            
+            <label *ngIf="(isVB && liv.prixVB_LD) || (!isVB && liv.prixPL_LD)" (click) = "selectedCoursier = liv.coursier+'_LD'" [ngClass]="{'active': selectedCoursier === liv.coursier+'_LD'}" class = "btn btn-default size-medium col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 6px 10px;">
+              <span class="glyphicon size-titre" [ngClass]="selectedCoursier === liv.coursier+'_LD'? 'glyphicon-check':'glyphicon-unchecked'" style="float: left;color: rgb(38, 96, 255)"></span>
+              {{liv.coursier}} livraison à domicile (Frais : {{isVB ? liv.prixVB_LD : liv.prixPL_LD}} DH).
+            </label>
+            
+            <label *ngIf="(isVB && liv.prixVB_PR) || (!isVB && liv.prixPL_PR)" (click) = "selectedCoursier = liv.coursier+'_PR'" [ngClass]="{'active': selectedCoursier === liv.coursier+'_PR'}" class = "btn btn-default size-medium col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 6px 10px;">
+              <span class="glyphicon size-titre" [ngClass]="selectedCoursier === liv.coursier+'_PR'? 'glyphicon-check':'glyphicon-unchecked'" style="float: left;color: rgb(38, 96, 255)"></span>
+              {{liv.coursier}} point de relais (Frais : {{isVB ? liv.prixVB_PR : liv.prixPL_PR}} DH).
+            </label>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px; margin-bottom: 5px;padding-top : 0px;background-color: rgb(0, 150, 236)">
+    <span class=" size-titre" style="float: left; color:white">5. Confirmez votre commande</span>
+  </div> 
+  <div class="col-lg-offset-3 col-md-offset-2 col-sm-offset-1 col-lg-6 col-md-8 col-sm-10 col-xs-12 round-border" 
+    style="padding-left: 5px; padding-right: 5px; padding-top:20px;text-align: left; margin-bottom: 50px;">
+    
+    <span class="col-lg-offset-1 col-md-offset-1 col-lg-7 col-md-7 col-sm-8 col-xs-8 size-medium color-a">Quantité totale</span>
+    <span class="col-lg-3 col-md-3 col-sm-4 col-xs-4 size-medium color-b color-prix">{{quantiteTotale}} pièces</span>
+
+    <span class="col-lg-offset-1 col-md-offset-1 col-lg-7 col-md-7 col-sm-8 col-xs-8 size-medium color-b">Prix produits</span>
+    <span class="col-lg-3 col-md-3 col-sm-4 col-xs-4 size-medium color-a color-prix">{{prixPieces}} DH</span>
+    
+    <span class="col-lg-offset-1 col-md-offset-1 col-lg-7 col-md-7 col-sm-8 col-xs-8 size-medium color-a">Prix livraison</span>
+    <span class="col-lg-3 col-md-3 col-sm-4 col-xs-4 size-medium color-b color-prix">{{prixLivraison}} DH</span>
+    
+    <span class="col-lg-offset-1 col-md-offset-1 col-lg-7 col-md-7 col-sm-8 col-xs-8 size-titre color-b total-text">Prix total</span>
+    <span class="col-lg-3 col-md-3 col-sm-4 col-xs-4 size-titre color-a total-prix">{{prixTotal}} DH</span>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px;">
+      <span *ngIf = "err" disabled class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" style="margin-top:0; padding: 10px;">
+        {{err}}
+      </span>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0;margin-bottom: 15px; text-align: center">
+      <button class="btn acheternow size-sous-titre" (click) = "PasserCommande()">Commander</button>
+    </div>
+    
+  </div>
+</div>
+<!--
+  add PanierItems
+  add Moyens de paiement
+  add Total
+   ?? add alert commande succes ? or alert resumé finaliser ?
+  go to resumé commande
+-->

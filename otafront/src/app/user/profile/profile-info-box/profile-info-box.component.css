@@ -1,0 +1,55 @@
+.movetop{
+    margin-top: -20px;
+}
+.bbtn 
+{
+    z-index        : 2;
+    background-color :rgb(121, 228, 255); 
+    color          : rgb(56, 56, 56); 
+    cursor         : pointer;
+    outline        : none;
+    border         : 2px solid #43C1FF;
+    border-radius  : 4px;
+    margin-bottom: 10px;
+}
+.bbtn:hover {
+    background-color :#3A6FFF; 
+    color            :#FFFFFF;
+}
+.bbtn:active 
+{ 
+    background-color : rgb(218, 248, 255);
+    color            : rgb(0, 38, 255);
+}
+.disabled, .bbtn:disabled, .bbtn[disabled] {
+    opacity : .5;
+    cursor  : not-allowed;
+}
+.disabled:active, .disabled:hover {
+    background-color :rgb(121, 228, 255); 
+    color            :rgb(56, 56, 56); 
+}
+.alert {
+    margin  : 10px 0; 
+    padding : 5px 15px;
+}
+
+.notexpanded, .notexpanded p, .notexpanded p span, .notexpanded .bbtn,.notexpanded div, .notexpanded .alert,
+.notexpanded app-input, .notexpanded app-input .searchformfld, .notexpanded app-input div, 
+.notexpanded app-input .searchformfld input,.notexpanded *,
+.notexpanded .form-control,.notexpanded app-input .notexpanded .form-control{
+    font-size  : 0;
+    margin     : 0;
+    opacity    : 0;
+    padding    : 0;
+    line-height: 0;
+    border : 0;
+    transition: opacity .25s, font-size .5s .25s, margin .5s .25s, padding .5s .25s, margin .5s .25s, line-height .5s .25s, border .5s .25s;
+}
+.expanded {
+    transition: opacity .5s .25s, font-size .25s, margin .25s, padding .25s, margin .25s, line-height .25s, border .25s;
+}
+.expanded .form-control, .expanded app-input .searchformfld .form-control {
+    height :20px;
+    transition: opacity .5s .25s, font-size .25s, margin .25s, padding .25s, margin .25s, line-height .25s, border .25s;
+}

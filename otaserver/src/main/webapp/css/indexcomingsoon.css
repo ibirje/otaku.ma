@@ -1,0 +1,33 @@
+@charset "ISO-8859-1";
+
+.zawa {
+  animation: 
+    fadeIn 1s,
+    pulse 2s 3s 20;
+}
+.panel-default > .panel-heading{
+  color: white;
+  background: rgb(0, 155, 252);
+}
+.panel-default{
+  border-color: rgb(0, 87, 141);
+}
+.panel-title span, .panel-title a{
+  font-weight: bold;
+}
+#footer{
+  background: #CEECFF;
+}
+.list-group-item{
+  padding-bottom: 1px;
+  padding-top: 1px;
+  background: #CEECFF;
+  border-color: rgb(114, 201, 255);
+}
+.panel-group{
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.panel-heading{
+  padding: 4px 5px;
+}

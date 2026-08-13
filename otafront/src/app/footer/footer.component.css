@@ -1,0 +1,48 @@
+.footer {
+    height : 200px;
+    background :white;
+    border-top : 2px solid #43C1FF;
+}
+
+.footbutton{
+	border:2px solid #43C1FF;
+	border-radius:12px;
+	margin-top:8px;
+	padding:5px;
+	background-color:white;
+}
+.footbutton:hover {
+	background-color:#CEECFF;
+	animation :pulse 1s;
+	animation-play-state:running;
+}
+
+.footbutton img { width:48px; height:48px; }
+
+
+@media (min-width: 1281px) and (max-width: 1921px) {
+	.footbutton img { width:48px; height:48px; }
+  }
+  @media (min-width: 1025px) and (max-width: 1280px) {
+	.footbutton img { width:40px; height:40px; }
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+	.footbutton{ padding: 4px; }
+	.footbutton img { width:35px; height:35px; }
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+	.footbutton{ padding: 4px; }
+	.footbutton img { width:35px; height:35px; }
+  }
+
+  @media (min-width: 481px) and (max-width: 767px) {
+	.footbutton{ padding: 3px; border-radius:8px; }
+	.footbutton img { width:30px; height:30px; }
+  }
+
+  @media (max-width: 480px) {  
+	.footbutton{ padding: 2px; border-radius:6px; }
+	.footbutton img { width:20px; height:20px; }
+}

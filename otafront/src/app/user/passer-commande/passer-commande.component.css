@@ -1,0 +1,31 @@
+.btn { padding: 6px 20px; }
+.color-a {
+    background-color: rgb(235, 246, 255);
+    padding:10px 0;
+    padding-left: 10px;
+    border: 1px  solid rgb(193, 195, 199);
+}
+.color-b {
+    background-color: rgb(222, 231, 231);
+    padding:10px 0;
+    padding-left: 10px;
+    border: 1px  solid rgb(193, 195, 199);
+}
+.color-prix{
+    color: rgb(57, 57, 255);
+}
+.total-prix {
+    background-color: rgb(235, 251, 255);
+    border: 2px  solid rgb(144, 146, 150);
+    border-left: 1px  solid rgb(193, 195, 199);
+    color: rgb(0, 146, 0);
+}
+
+.total-text {
+    border: 2px  solid rgb(144, 146, 150);
+    border-right: 1px  solid rgb(193, 195, 199);
+}
+
+.acheternow { background-color:rgb(57, 103, 255); color:#FFFFFF;}
+.acheternow:hover { background-color:rgb(60, 216, 255); color:rgb(56, 56, 56); }
+.acheternow:active { background-color:rgb(0, 162, 202); color:rgb(255, 255, 255); }

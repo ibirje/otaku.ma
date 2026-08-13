@@ -1,0 +1,68 @@
+
+.selected-box {
+  background-color: rgb(200, 255, 190);
+}
+.not-selected-box {
+  background-color:white; 
+}
+.bbtn {
+  z-index       : 2;
+  position      : absolute;
+  background-color:rgb(121, 228, 255); 
+  color:rgb(56, 56, 56); 
+  cursor        : pointer;
+  outline       : none;
+  border        : 2px solid #43C1FF;
+}
+.selected-box .bbtn {
+  background-color:rgb(126, 255, 121); 
+  color:rgb(56, 56, 56); 
+}
+.modifier {
+  border-radius :  0 16px 0 16px;
+  right: -10px;
+  bottom: -10px;
+  padding: 4px 12px;
+}
+.selectionner {
+  border-radius :  0 8px 0 8px;
+  left: -5px;
+  bottom: -10px;
+  padding: 4px 12px;
+}
+.titre {
+  background:rgb(163, 218, 255); 
+  margin-top   : -12px; 
+  margin-left  : -5px; 
+  margin-right : -5px;
+  padding-left : 5px;
+  border-top-left-radius  : 6px;
+  border-top-right-radius : 6px;
+}
+
+.selected-box .titre {
+  background-color: rgb(154, 255, 136);
+}
+
+.modifier:hover, .selectionner:hover {
+  background-color:#3A6FFF; 
+  color:#FFFFFF;
+}
+
+.selected-box .modifier:hover, .selected-box .selectionner:hover {
+  background-color:rgb(27, 146, 45); 
+  color:#FFFFFF;
+}
+  
+input[type="button"]:active, button:active, a:active, .modifier:active, .selectionner:active 
+{ 
+	background-color: rgb(218, 248, 255);
+	color: rgb(0, 38, 255);
+}
+  
+.selected-box input[type="button"]:active, .selected-box button:active, .selected-box a:active,
+.selected-box .modifier:active, .selected-box .selectionner:active 
+{
+	background-color: rgb(201, 255, 196);
+	color: rgb(0, 204, 61);
+}

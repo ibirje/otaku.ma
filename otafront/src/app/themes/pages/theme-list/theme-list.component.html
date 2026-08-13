@@ -1,0 +1,44 @@
+<div class="row" style="margin: 0">
+    <div class=" col-md-offset-2 col-lg-offset-2 col-md-10 col-lg-10 col-sm-12 col-xs-12">
+        
+        <div class="col-md-11 col-lg-11 col-sm-12 col-xs-12" style="text-align: left;margin-top: 0px;padding: 0px 5px;">
+            <span *ngFor="let item of branche; let i = index" >
+                {{i > 0 ? '>':''}} 
+                <a routerLink = "{{item.link}}">{{item.nom}}</a>
+            </span>
+        </div>
+    
+        <div class="col-md-11 col-lg-11 col-sm-12 col-xs-12" style="margin-top: 0px;padding: 5px">
+            <app-list-filtres (triChanged) = "triChanged($event)" (prixChanged) = "prixChanged($event)"></app-list-filtres>
+            <app-pagination (changedEvent) = "pageChangedEvent($event)" [page] = "page" [size] = "size" ></app-pagination>
+        </div>
+    
+    </div>
+</div>
+
+<div class="col-md-2 col-lg-2 hidden-sm hidden-xs" style="margin-top: 10px;padding-right: 0">
+    <div class="round-border size-sous-titre">
+        <div class="titre">Thèmes similaires</div>
+        <div *ngFor="let item of related" style="text-align: left">
+    
+          <div  style="margin-bottom: 8px;">
+            <a routerLink="{{item.parent.link}}">{{item.parent.nom}}</a>
+          </div>
+    
+          <div *ngFor="let fils of item.childs" style="margin-bottom: 8px;">
+            <a routerLink="{{fils.link}}" style="margin-left: 30px;">
+              <img *ngIf="fils.smallImage" src="{{fils.smallImage}}" style="height:25px" /> {{fils.nom}}
+            </a>
+          </div>
+    
+        </div>
+      </div>
+</div>
+
+<div class="col-md-10 col-lg-10 col-sm-12 col-xs-12">
+    <app-produit-liste [produits] = "produits" [loading] = "loading"></app-produit-liste>
+    
+    <div class="col-md-11 col-lg-11 col-sm-12 col-xs-12" style="margin-bottom: 20px;padding: 5px">	
+        <app-pagination (changedEvent) = "pageChangedEvent($event)" [page] = "page" [size] = "size" ></app-pagination>
+    </div>
+</div>

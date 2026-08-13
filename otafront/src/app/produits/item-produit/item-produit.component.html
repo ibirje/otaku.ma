@@ -1,0 +1,64 @@
+<div class="col-md-3 col-lg-3 col-sm-4 col-xs-6" style="padding: 0 10px">
+  <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 produit_liste" data-wow-delay=".3s">
+
+    <a routerLink="{{link}}">
+
+      <div *ngIf="!loaded" class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <img src="../../../assets/img/kawai_loading.gif" title="{{nom}}" alt="Chargement..." style="width: 50%" />
+
+      </div>
+      <img [hidden]="!loaded" src="{{thumbnail}}" title="{{nom}}" (load)="isloaded()"
+        class="col-md-12 col-lg-12 col-sm-12 col-xs-12" alt="..." />
+    </a>
+
+    <div class="row">
+      <a routerLink="{{link}}">
+        <span class="produit_titre align-middle" title="{{nom}}">
+          {{nom}}
+        </span>
+      </a>
+    </div>
+
+    <div *ngIf="isPromo; Then enpromo; else notpromo"></div>
+
+    <ng-template #enpromo>
+      <div class="row">
+        <span class="line-through gray" style="margin-right:5px">
+          {{prixUnite-1}}<span class="size-small">.99</span> DH
+        </span>
+        <span class="promo size-titre">
+          {{prixPromo-1}}<span class="size-small">.99</span> DH
+        </span>
+        <span class="discount size-titre">-{{reduc | number: '.0-0'}}%</span>
+      </div>
+    </ng-template>
+
+    <ng-template #notpromo>
+      <div class="row">
+        <span class="promo size-titre"> {{prixUnite-1}}<span class="size-small">.99</span> DH </span>
+      </div>
+    </ng-template>
+
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="padding: 0px">
+      <app-etoiles [nombre]="0" [avis]="avis" [size]='"size-small"'></app-etoiles>
+      <a routerLink="#comms">
+        <span class="avis size-small">Commandes({{commandes}})</span>
+      </a>
+    </div>
+
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+      <button style="background:none; border:none" (click)="ajouterPanier()">
+        <span class="gray size-small">
+          <span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier
+        </span>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<app-popup #panierPopup [titre]="'Produit ajouté au panier'" [buttonText]="'Panier'"
+  (buttonClickedEvent)="goToPanier()"></app-popup>
+
+<app-popup #nonConnectePopup [titre]="'Non connecté'" [buttonText]="'Connecter'" (buttonClickedEvent)="goToLogin()">
+</app-popup>

@@ -1,0 +1,182 @@
+
+.searchbar {
+	margin-top:5px;
+	position:relative;
+  display: inline-block;
+}
+
+.searchbar .search-container
+{
+	float: left;
+	border:2px;
+	border-radius:8px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 40, 0.5), 0 6px 20px 0 rgba(0, 0, 40, 0.5);
+}
+
+.srchbutton 
+{
+  float: right;
+  padding: 3px;
+  background: #9BD2FF;
+  cursor: pointer;
+  border:2px solid #43C1FF;
+  border-left:none;
+  border-radius: 0 8px 8px 0 ;
+}
+
+.srchbutton:hover {
+  background-color :#3A6FFF; 
+  color            :#FFFFFF;
+}
+
+.srchbutton:active 
+{ 
+  background-color : rgb(218, 248, 255);
+  color            : rgb(0, 38, 255);
+}
+
+button:hover 
+{
+  background: #2196F3;
+}
+
+input[type=text] { 
+  border:2px solid #43C1FF;
+  border-right:none;
+  border-radius: 8px 0 0 8px;
+  padding: 6px; 
+  width:800px; 
+}
+.searchimg { width  : 29px; height : 29px; }
+
+
+.smallbtn{
+  border:2px solid #43C1FF;
+	border-radius:8px;
+	margin-top:5px;
+	padding:2px;
+	float:left;
+	background-color:white;
+	animation-delay:3s;
+	-moz-animation-delay:3s;
+	-ms-animation-delay:3s;
+	-o-animation-delay:3s;
+  -webkit-animation-delay:3s;
+}
+.panier {
+	margin-left:5px;
+	margin-right:5px;
+}
+.panier img {
+  width  : 34px; 
+  height : 34px;
+}
+.panier span {
+  margin-left : -15px; 
+  border : 2px; 
+  border-radius : 8px;
+}
+.favoris {
+	margin-right:5px;
+}
+.favoris span {
+  width: 34px; height: 34px;
+  padding-top: 5px; padding-right: 4px;
+  color: rgb(192, 192, 192);
+}
+.favoris:hover, .favoris:hover span {
+  color: rgb(219, 6, 6);
+  background-color: rgb(202, 220, 255);
+  transition : background-color ease-out 0.4s, color .3s ease-in;
+}
+
+@media (min-width: 1601px) and (max-width: 1921px) {
+
+  input[type=text] { padding: 6px; width:700px; }
+}
+
+@media (min-width: 1401px) and (max-width: 1600px) {
+
+  input[type=text] { padding: 6px; width:550px; }
+}
+
+@media (min-width: 1281px) and (max-width: 1400px) {
+
+  input[type=text] { padding: 6px; width:450px; }
+}
+@media (min-width: 1281px) and (max-width: 1921px) {
+
+  .searchimg { width  : 26.75px; height : 26.75px; }
+  
+  .favoris span { width: 32px; height: 26px; padding-top: 3px;}
+  .panier img { width  : 32px; height : 31px;}
+}
+@media (min-width: 1025px) and (max-width: 1280px) { 
+
+  input[type=text] { padding: 6px; width:400px; }
+  .searchimg { width  : 21px; height : 21px; }
+  .favoris span { width: 29px; height: 26px; padding-top: 4px;}
+  .panier img { width  : 29px; height : 28px;}
+}
+
+@media (min-width: 901px) and (max-width: 1024px) {
+  
+  input[type=text] { padding: 5px; width:350px; }
+}
+
+@media (min-width: 768px) and (max-width: 900px) {
+  
+  input[type=text] { padding: 5px; width:280px; }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  
+  .searchimg { width  : 16px; height : 16px; }
+  .srchbutton { padding: 2px;}
+  
+  .favoris span { width: 24px; height: 20px; padding-top: 2px; padding-right: 2px;}
+  .favoris { padding-bottom: 0px;}
+  .panier img { width  : 24px; height : 23px;}
+}
+
+@media (min-width: 601px) and (max-width: 767px) {
+  input[type=text] { padding: 5px; width:230px; }
+}
+
+@media (min-width: 481px) and (max-width: 601px) {
+  input[type=text] { padding: 5px; width:170px; }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+
+  .searchimg { width  : 15px; height : 15px; }
+  .srchbutton { padding: 2px;}
+
+  .favoris span { width: 20px; height: 20px; padding-top: 2px; padding-right: 2px;}
+  .favoris { padding-bottom: 0px; }
+  .panier img { width  : 20px; height : 19px;}
+  .panier span { padding: 1px 4px; }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+
+  input[type=text] { padding: 5.9px; width:130px; }
+  .searchimg { width  : 16px; height : 16px; }
+  .srchbutton { padding: 2px; }
+  
+  .favoris span { width: 19px; height: 20px; padding-top: 2px; padding-right: 2px;}
+  .favoris { padding-bottom: 0px; }
+  .panier img { width  : 19px; height : 17px;}
+  .panier span { padding: 1px 4px; }
+}
+@media (max-width: 320px) {
+
+  input[type=text] { padding: 4px; width:120px; }
+  .searchimg { width  : 13px; height : 13px; }
+  .srchbutton { padding: 1px; }
+  
+  .favoris span { width: 19px; height: 15px; margin-top: -1px; padding-top: 0px; padding-right: 2px;}
+  .panier, .favoris { padding: 1px; }
+  .favoris { padding-bottom: 0px; }
+  .panier img { width  : 19px; height : 13px; padding-right: 4px;}
+  .panier span { padding: 1px 4px; }
+}

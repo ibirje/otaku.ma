@@ -1,0 +1,26 @@
+<ng-container *ngIf="openPopup" >
+  <div class="modal" (click) = "closePopup()">
+
+    <div class="modal-content" (click) = "handleClick($event)">
+      <div class="modal-header">
+        <span class="close" (click) = "closePopup()">&times;</span>
+        <ng-container *ngIf="titre"><span class="size-titre">{{titre}}</span></ng-container>
+      </div>
+      <div class="modal-body">
+        <ng-container *ngIf="text">
+          <div class="row" style="margin: 5px 10px; vertical-align: middle">
+            {{text}}
+          </div>
+        </ng-container>
+      </div>
+      <div class="modal-footer">
+        <ng-container *ngIf="buttonText">
+          <Button class="bbtn" value="{{buttonText}}" (click)="buttonClick()">{{buttonText}}</Button>
+        </ng-container>  
+        <ng-container *ngIf="button2Text">
+          <Button class="bbtn" value="{{button2Text}}" (click)="button2Click()">{{button2Text}}</Button>
+        </ng-container>  
+      </div>
+    </div>
+  </div>
+</ng-container>

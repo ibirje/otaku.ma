@@ -1,0 +1,179 @@
+.color-a {
+  background-color: rgb(235, 246, 255);
+  padding:10px 0;
+  padding-left: 10px;
+  border: 1px  solid rgb(193, 195, 199);
+}
+.color-b {
+  background-color: rgb(222, 231, 231);
+  padding:10px 0;
+  padding-left: 10px;
+  border: 1px  solid rgb(193, 195, 199);
+}
+.color-prix{
+  color: rgb(57, 57, 255);
+}
+.total-prix {
+  background-color: rgb(235, 251, 255);
+  border: 2px  solid rgb(144, 146, 150);
+  border-left: 1px  solid rgb(193, 195, 199);
+  color: rgb(0, 146, 0);
+}
+.total-text {
+  border: 2px  solid rgb(144, 146, 150);
+  border-right: 1px  solid rgb(193, 195, 199);
+}
+
+
+.variationimg
+{ 
+    width:60px; 
+    height:60px; 
+    margin: 4px; 
+    float: right;
+}
+.bbtn {  
+    background-color:rgb(100, 141, 255); 
+    color:#FFFFFF; margin:5px; border: 2px none; 
+    border-radius: 6px;
+    padding: 3px 6px;
+}
+
+.bbtn:hover { background-color:rgb(158, 236, 255); color:rgb(56, 56, 56); }
+
+.modal {
+    display: block; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1040; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 1920px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+  }
+  
+  /* Add Animation */
+  @-webkit-keyframes animatetop { from { top:-300px; opacity:0 } to { top:0; opacity:1 } }
+  @keyframes animatetop { from { top:-300px; opacity:0 } to { top:0; opacity:1 } }
+  
+  /* The Close Button */
+  .close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .modal-header {
+    padding: 2px 12px;
+    background-color: #3274ca;
+    color: white;
+  }
+  
+  .modal-body {padding: 2px 12px;}
+  
+  .modal-footer {
+    padding: 2px 12px;
+    background-color: #ffffff;
+    color: white;
+  }
+  
+  .glyphicon-arrow-right {
+    padding: 0; 
+    padding-top: 80px; 
+    font-size: 70px; 
+  }
+  
+  .empty-arrow {
+    color: rgb(173, 177, 194);
+  }
+  
+  .full-arrow {
+      color: rgb(56, 81, 190);
+  }
+
+  .track-img { width: 150px; }
+  .track-text { color: rgb(48, 100, 0); margin: 5px 0;}
+  .track-text-disabled { color: rgb(97, 99, 95); margin: 5px 0;}
+  .track-text-err { color: rgb(107, 20, 20); margin: 5px 0; }
+
+  
+
+  /* ##Device = Desktops
+     ##Screen = 1281px to higher resolution desktops */
+     @media (min-width: 1281px) and (max-width: 1921px) {
+      .track-img { width: 100px; } 
+      .glyphicon-arrow-right { padding-top: 50px;  font-size: 60px;  }
+    }
+  
+    /* ##Device = Laptops, Desktops
+       ##Screen = B/w 1025px to 1280px */
+    @media (min-width: 1025px) and (max-width: 1280px) {
+      .track-img { width: 80px; } 
+      .glyphicon-arrow-right { padding-top: 45px;  font-size: 50px;  }
+    }
+  
+    /* ##Device = Tablets, Ipads (portrait)
+       ##Screen = B/w 768px to 1024px */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .track-img { width: 60px; } 
+      .glyphicon-arrow-right { padding-top: 40px;  font-size: 40px;  }
+    }
+  
+    /* ##Device = Tablets, Ipads (landscape)
+       ##Screen = B/w 768px to 1024px */
+    @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+      .track-img { width: 60px; } 
+      .glyphicon-arrow-right { padding-top: 40px;  font-size: 40px;  }
+    }
+  
+    /* ##Device = Low Resolution Tablets, Mobiles (Landscape)
+       ##Screen = B/w 481px to 767px */
+    @media (min-width: 481px) and (max-width: 767px) {
+      .track-img { width: 40px; } 
+      .glyphicon-arrow-right { padding-top: 30px;  font-size: 30px;  }
+      .modal-content { width: 85%; }
+    
+    }
+  
+    /* ##Device = Most of the Smartphones Mobiles (Portrait)
+       ##Screen = B/w 320px to 479px */
+    @media (min-width: 320px) and (max-width: 480px) {
+      .track-img { width: 30px; } 
+      .glyphicon-arrow-right { padding-top: 25px;  font-size: 25px;  }  
+      .modal-content { width: 90%; }
+    
+    }
+  
+    @media (max-width: 320px) {
+      .track-img { width: 20px; } 
+      .glyphicon-arrow-right { padding-top: 20px;  font-size: 15px;  }
+      .modal-content { width: 95%; }
+    
+    }

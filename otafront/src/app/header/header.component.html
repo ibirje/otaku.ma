@@ -1,0 +1,18 @@
+<div [ngStyle]="{ background: 'url('+ backgroundImg +')' }" 
+class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="banner" 
+style="padding-left : 5px; padding-right : 5px; ">
+
+  <div class="sticky">
+
+    <app-type-dropdown [type] = "'categorie'" class="categorie" ></app-type-dropdown>
+    <app-type-dropdown [type] = "'theme'" class="theme"></app-type-dropdown>
+    <app-dropdown class="user"></app-dropdown>
+    <app-searchbar></app-searchbar>
+    
+  </div>
+
+  <div routerLink = "/" class="logo">
+    <img src="../../assets/img/logo.png"/>
+  </div>
+</div>
+

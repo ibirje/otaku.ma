@@ -1,0 +1,28 @@
+<div *ngIf="!loading && produits && produits.length > 0; else listevide" style="margin: 0 5px">
+	<div  class="col-md-11 col-lg-11 col-sm-12 col-xs-12 round-border">
+    <app-item-produit *ngFor="let produit of produits" 
+      [code]="produit.code"
+      [nom]="produit.nom"
+      [thumbnail]="produit.thumbnail"
+      [prixUnite]="produit.prixUnite"
+      [prixPromo]="produit.prixPromo"
+      [avis]="produit.avis"
+      [commandes]="produit.commandes"
+      [stringDateDebutPromo]="produit.stringDateDebutPromo"
+      [stringDateFinPromo]="produit.stringDateFinPromo">
+    </app-item-produit>
+  </div>
+</div>
+<ng-template #listevide>
+  <div *ngIf = "loading" style="margin: 0 5px">
+    <div class="col-md-11 col-lg-11 col-sm-12 col-xs-12 round-border">
+      <img src="../../../assets/img/kawai_loading.gif" title="{{nom}}"  alt="Chargement..." style="margin-top: 30px; margin-bottom: 50px;width: 20%" />
+    </div>
+  </div>
+  
+  <div *ngIf = "!loading" style="margin: 0 5px">
+    <div class="col-md-11 col-lg-11 col-sm-12 col-xs-12 round-border" style="padding-top : 60px; padding-bottom:60px">
+      {{listeVideText}}.
+    </div>
+  </div>
+</ng-template>

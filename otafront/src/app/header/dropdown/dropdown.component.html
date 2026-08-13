@@ -1,0 +1,26 @@
+<div class="dropdown">
+    
+    <ng-container *ngIf="user; else not_connected">
+      <button class="dropbtn size-sous-titre" routerLink="/user/profile" >
+        {{username}} <span class="glyphicon glyphicon-user" style="margin-left: 5px;"></span>
+      </button>
+    </ng-container>
+  
+    <ng-template #not_connected>
+      <button class="dropbtn size-sous-titre" (click) = "login()" >Se connecter</button>
+    </ng-template>
+
+    <div class="dropdown-content">
+      <ng-container *ngIf="!user"><a routerLink="/user/inscription">S'inscrire</a></ng-container>
+      <a routerLink="/user/profile">Profile</a>
+      <a routerLink="/user/commandes">Commandes</a>
+      <!-- <a routerLink="/user/messages">Messages</a> -->
+      <!-- <a routerLink="/assistance">Assistance</a> -->
+
+      <ng-container *ngIf="user">
+        <button class="content-btn" (click) = "logout()" value="logout">Déconnecter</button>
+      </ng-container>
+
+    </div>
+
+  </div>

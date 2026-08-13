@@ -1,0 +1,27 @@
+
+    .round-border {
+        border:2px solid #43C1FF;
+        border-radius:8px;
+        padding:10px 0px 0px 0px; 
+        background-color:white; 
+        margin-top:10px;
+        margin-bottom:10px;
+      }
+      .footbutton{
+        border:2px solid #43C1FF;
+        border-radius:4px;
+        margin-top:8px;
+        margin-right:10px;
+        padding:2px 1px;
+        background-color:white;
+        animation-delay:3s;
+        -moz-animation-delay:3s;
+        -ms-animation-delay:3s;
+        -o-animation-delay:3s;
+        -webkit-animation-delay:3s;
+    }
+    .footbutton:hover{
+        background-color:#CEECFF;
+        animation :pulse 1s;
+        animation-play-state:running;		
+    }

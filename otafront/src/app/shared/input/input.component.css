@@ -1,0 +1,42 @@
+.searchformfld{
+    position: relative;
+    text-align: left;
+    padding-top: 10px;
+    margin-top: 15px;
+}
+.searchformfld label{
+    position: absolute;
+    padding-left: 10px;
+    top:15px;
+}
+.searchformfld input:focus + label,.searchformfld input:not(:placeholder-shown) + label{
+    opacity:.8;
+    transform: scale(.8) translateY(-150%) translateX(-10px);
+    color:rgb(4, 0, 255);
+}
+.searchformfld input{
+    width:100%;
+    padding-left: 10px;
+}
+.searchformfld label,.searchformfld input{
+    transition: all 0.2s;
+    transition-timing-function: ease;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    opacity : 1;
+}
+.searchformfld label{  opacity:0.5; }
+
+.notexpanded *{
+    font-size   : 0; margin      : 0; opacity     : 0; padding     : 0; line-height : 0; border      : 0;
+    transition  : opacity .25s, font-size .5s .25s, margin .5s .25s, padding .5s .25s, margin .5s .25s, line-height .5s .25s, border .5s .25s;
+}
+.expanded {
+    transition : opacity .5s .25s, font-size .25s, margin .25s, padding .25s, margin .25s, line-height .25s, border .25s;
+}
+.notexpanded .form-control {
+    font-size  : 0; margin     : 0; opacity    : 0; padding    : 0; height     : 0px; width      : 0px;
+    transition : opacity .25s, height 1s 0.15s, width .6s;
+}
+.expanded .form-control {
+    transition : opacity .5s .25s, font-size .25s, margin .25s, padding .25s, margin .25s, line-height .25s, border .25s;
+}

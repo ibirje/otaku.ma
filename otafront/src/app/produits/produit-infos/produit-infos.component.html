@@ -1,0 +1,71 @@
+<div *ngIf="produit" class="col-md-7 col-lg-7 col-sm-12 col-xs-12" style="padding: 0px;">
+
+<!-- ********************** titre / nb avis , commandes *************************** -->
+
+  <div class="titre">
+    <span class="produit-titre size-titre"> {{ produit.nom }} </span>
+    <div class="avis">
+      <app-etoiles [nombre] = "produit.stars" [avis] = "produit.avis" ></app-etoiles>
+      <a href="#comms" class="avis size-sous-titre"  style="margin-left:10px">
+        Commandes
+      </a>
+      <a href="#comms" class="avis size-sous-titre">
+        ({{ produit.commandes }})
+      </a>
+    </div>
+  </div>
+  
+  <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="text-align: left;">
+    
+    <!-- ****************************** if promo *********************************** -->
+    <ng-container *ngIf="produit.isPromo; else notPromo "> 
+
+      <div style="margin-top:10px" class ="line-through gray"> 
+        Prix : 
+        <span class ="line-through gray" style="margin-left:20px">
+          {{produit.prixUnite-1}} <span  class="size-small">.99</span> DH / pièce
+        </span>
+      </div> 
+
+      <div style="margin-top:10px; margin-bottom:10px;">
+        Prix Promotion :
+        <span class="promo size-sous-titre"  style="margin-left:10px"> {{produit.prixPromo-1}}
+          <span class="size-small">.99</span> DH
+        </span>
+        <span class="gray">/ pièce </span>
+        <span class="discount size-sous-titre"> -{{ produit.reduc | number: '.0-0'}}% </span>
+        <span class="discount-countdown">
+          <app-countdown #appcountdown (promoEndEvent) = "promoFin($event)" [datedebut]="datedebut" [datefin]="datefin" [isPromo]="true"></app-countdown>
+        </span>
+        <app-variations-grid 
+          [produit] = "produit"
+          [variations]="variations" 
+          [attributs] = "attributs"
+          (selectionChangedEvent) = "selectionChanged(selectedCode = $event)">
+      </app-variations-grid>
+      </div>
+
+    </ng-container>
+    
+<!-- ****************************** if not promo *********************************** -->
+
+    <ng-template #notPromo>
+      <div style="margin-top:10px; margin-bottom:10px;">
+        Prix :
+        <span class="promo size-sous-titre"> {{produit.prixUnite-1}}
+          <span class="size-small">.99</span> DH
+        </span> 
+        <span class="gray" > / pièce </span>
+        
+        <app-variations-grid 
+          [produit] = "produit"
+          [variations]="variations" 
+          [attributs] = "attributs"
+          (selectionChangedEvent) = "selectionChanged(selectedCode = $event)">
+        </app-variations-grid>
+      </div>
+    </ng-template>
+    
+  </div>
+
+</div>

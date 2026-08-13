@@ -1,0 +1,11 @@
+<span>
+    <ng-container *ngIf="jours >= 1">
+        {{jours| number: '2.0-0'}}:
+    </ng-container>
+    
+    <ng-container *ngIf="heures >= 1  || jours >= 1"> 
+        {{heures| number: '2.0-0'}}:
+    </ng-container>
+    {{minutes| number: '2.0-0'}}:
+    {{secondes| number: '2.0-0'}}
+</span>

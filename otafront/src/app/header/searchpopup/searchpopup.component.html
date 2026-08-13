@@ -1,0 +1,10 @@
+<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 content" [ngClass]="{' content-show': visible}" style="padding: 2px;">
+
+  <button routerLink = "{{item.link}}" [queryParams]="{ text: text }" *ngFor =" let item of items" class="col-md-12 col-lg-12 col-sm-12 col-xs-12 size-small buttonitem">
+    <span class="size-small">{{text}}</span>
+    <span class="size-small" style="color: rgb(145, 145, 145); float: center"> dans </span>
+    <a routerLink = "{{item.link}}" class="size-small" style="font-weight: 600; float: right">{{item.nom}} ({{item.count}})</a>
+  </button>
+
+</div>
+<div (window:mouseup)="clickedOutside()" (window:touchup)="clickedOutside()"></div>

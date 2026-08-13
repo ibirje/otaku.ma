@@ -1,0 +1,108 @@
+<div class="col-lg-offset-2 col-sm-offset-1 col-md-10 col-lg-8 col-sm-10 col-xs-12">
+
+  <app-info-box [titre]="titre" [selectable]="false" (expandEvent)="expandedClick()">
+    <div contenu>
+      <div *ngIf="user; else vide" style="padding-bottom :10px">
+
+        <div [ngClass]="!expanded ? 'notexpanded' : 'expand'">
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding :0 5px;">
+            <app-input [(ngModel)]="nom" [titre]="'Nom'" [expanded]="expanded"></app-input>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding :0 5px;">
+            <app-input [(ngModel)]="prenom" [titre]="'Prénom'" [expanded]="expanded"></app-input>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding :0 5px;">
+            <app-input *ngIf="!user.pseudo || user.pseudo === ''" [(ngModel)]="pseudo" [titre]="'Pseudo'" [expanded]="expanded"></app-input>
+            <div *ngIf="user.pseudo && user.pseudo !== ''" class="alert alert-info">Pseudo : {{user.pseudo}}</div>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding : 0 5px;">
+            <app-input [(ngModel)]="telephone" [titre]="'Téléphone'" [expanded]="expanded"></app-input>
+          </div>
+
+          <div class="alert alert-info col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="user.email">
+            Email : {{user.email}}
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="alert"
+              [ngClass]="[ hasError? 'alert-danger':success||!user.pseudo||user.pseudo === ''?'alert-success':'alert-success no-opacity']">
+              <div *ngIf="err_pseudo">Pseudo invalide essayez : {{pseudo | PseudoPipe}}</div>
+              <div *ngIf="!err_pseudo && err_nom">Nom invalide</div>
+              <div *ngIf="!err_pseudo && !err_nom && err_prenom">Prenom invalide</div>
+              <div *ngIf="!err_pseudo && !err_nom && !err_prenom && err_telephone">Numéro de téléphone invalide</div>
+              <div *ngIf="success">{{success}} ( ͡° ͜ʖ ͡°)</div>
+              <div *ngIf="!hasError">
+                Une fois choisi, votre pseudo ne peut pas être modifié.</div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <button class="bbtn" (click)="enregistrer()" [ngClass]="saveEnabled ? '' : 'disabled'">Enregistrer</button>
+          </div>
+
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding :0 5px;">
+            <app-input [type]="'password'" [(ngModel)]="new_mdp" [titre]="'Nouveau mot de passe'" [expanded]="expanded">
+            </app-input>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding :0 5px;">
+            <app-input [type]="'password'" [(ngModel)]="new_mdp_confirm" [titre]="'Confirmez le mot de passe'"
+              [expanded]="expanded"></app-input>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding :0 5px;">
+            <app-input [type]="'password'" [(ngModel)]="old_mdp" [titre]="'Mot de passe courant'" [expanded]="expanded">
+            </app-input>
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="alert" role="alert" [ngClass]="[err_pwd||err_pwd_srv ?'alert-danger':pwd_success?'alert-success':'alert-success no-opacity']">
+              <div *ngIf="err_pwd">{{ err_pwd }}</div>
+              <div *ngIf="err_pwd_srv">{{ err_pwd_srv }}</div>
+              <div *ngIf="pwd_success">{{pwd_success}}</div>
+              <div *ngIf="!err_pwd && !err_pwd_srv && !pwd_success">( ͡° ͜ʖ ͡°)</div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <button class="bbtn" (click)="enregistrerMdp()" [ngClass]="pwd_saveEnabled ? '' : 'disabled'">Modifier mot
+              de passe</button>
+          </div>
+
+        </div>
+
+        <div [ngClass]="expanded ? 'notexpanded' : 'expand movetop'">
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            Prénom : <span *ngIf="!user.prenom || user.prenom === ''; else hasPrenom " style="color:#929292;">Vide</span>
+            <ng-template #hasPrenom>{{user.prenom }}</ng-template>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            Nom : <span *ngIf="!user.nom || user.nom === '' ; else hasNom " style="color:#929292;">Vide</span>
+            <ng-template #hasNom>{{user.nom }}</ng-template>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Email : {{user.email}}</div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            Pseudo : <span *ngIf="!user.pseudo || user.pseudo === '' ; else hasPseudo " style="color:#929292;">Vide</span>
+            <ng-template #hasPseudo>{{user.pseudo}}</ng-template>
+          </div>
+        </div>
+
+      </div>
+
+      <ng-template #vide>
+        <div style="text-align: center; padding :10px 0px">
+          <p>Vide</p>
+        </div>
+      </ng-template>
+    </div>
+  </app-info-box>
+
+</div>

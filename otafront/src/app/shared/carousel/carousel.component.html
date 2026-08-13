@@ -1,0 +1,10 @@
+<div #block style="display:block;" class="col-md-12 col-lg-12 col-xs-12 col-sm-12" (window:resize)="onResize($event)" [style.height.px]="height" style="margin-bottom:20px;margin-top: 10px">
+  <slideshow #slideshow [imageUrls]="imageUrls" [minHeight]="minHeight" [arrowSize]="arrowSize"
+    [showArrows]="showArrows" [disableSwiping]="disableSwiping" [autoPlay]="autoPlay"
+    [stopAutoPlayOnSlide]="stopAutoPlayOnSlide" [debug]="debug" [backgroundSize]="backgroundSize"
+    [backgroundPosition]="backgroundPosition" [backgroundRepeat]="backgroundRepeat" [showDots]="showDots"
+    [dotColor]="dotColor" [showCaptions]="showCaptions" [captionColor]="captionColor"
+    [captionBackground]="captionBackground" [lazyLoad]="lazyLoad" [hideOnNoSlides]="hideOnNoSlides"
+    (onClick)="clicked()">
+  </slideshow>
+</div>

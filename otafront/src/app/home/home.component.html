@@ -1,0 +1,66 @@
+<div class="col-md-2 col-lg-2 hidden-sm hidden-xs" style="padding-right: 0">
+    <div class="round-border size-sous-titre">
+        <div class="titre">Thèmes</div>
+        <div *ngFor="let item of sortedthemes" style="text-align: left">
+
+            <div style="margin-bottom: 8px;">
+                <a routerLink="{{item.parent.link}}">{{item.parent.nom}}</a>
+            </div>
+
+            <div *ngFor="let fils of item.childs" style="margin-bottom: 8px;">
+                <a routerLink="{{fils.link}}" style="margin-left: 30px;">
+                    <img *ngIf="fils.smallImage" src="{{fils.smallImage}}" style="height:25px" /> {{fils.nom}}
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
+
+    <app-carousel></app-carousel>
+
+    <div *ngIf="news && news.length > 0" class="col-md-12 col-lg-12 col-sm-12 col-xs-12 round-border">
+        <div class="titre size-sous-titre">Nouveautés</div>
+        <app-item-produit *ngFor="let produit of news" [code]="produit.code" [nom]="produit.nom" [thumbnail]="produit.thumbnail" [prixUnite]="produit.prixUnite" [prixPromo]="produit.prixPromo" [avis]="produit.avis" [commandes]="produit.commandes" [stringDateDebutPromo]="produit.stringDateDebutPromo"
+            [stringDateFinPromo]="produit.stringDateFinPromo">>
+        </app-item-produit>
+    </div>
+
+    <div *ngIf="promos && promos.length > 0" class="col-md-12 col-lg-12 col-sm-12 col-xs-12 round-border">
+        <div class="titre size-sous-titre">Promotions</div>
+        <app-item-produit *ngFor="let produit of promos" [code]="produit.code" [nom]="produit.nom" [thumbnail]="produit.thumbnail" [prixUnite]="produit.prixUnite" [prixPromo]="produit.prixPromo" [avis]="produit.avis" [commandes]="produit.commandes" [stringDateDebutPromo]="produit.stringDateDebutPromo"
+            [stringDateFinPromo]="produit.stringDateFinPromo">>
+        </app-item-produit>
+    </div>
+
+    <div *ngIf="visites && visites.length > 0" class="col-md-12 col-lg-12 col-sm-12 col-xs-12 round-border">
+        <div class="titre size-sous-titre">Produits visités</div>
+        <app-item-produit *ngFor="let produit of visites" [code]="produit.code" [nom]="produit.nom" [thumbnail]="produit.thumbnail" [prixUnite]="produit.prixUnite" [prixPromo]="produit.prixPromo" [avis]="produit.avis" [commandes]="produit.commandes" [stringDateDebutPromo]="produit.stringDateDebutPromo"
+            [stringDateFinPromo]="produit.stringDateFinPromo">>
+        </app-item-produit>
+    </div>
+
+</div>
+
+<div class="col-md-2 col-lg-2 hidden-sm hidden-xs" style="padding-left: 0">
+    <div class="round-border">
+        <div class="titre">Catégories</div>
+        <div *ngFor="let item of sortedcategories" style="text-align: left">
+
+            <div style="margin-bottom: 8px;">
+                <a *ngIf="item.parent.code.length <= 4" routerLink="{{item.parent.link}}">{{item.parent.nom}}</a>
+            </div>
+            <div style="margin-bottom: 8px;">
+                <a *ngIf="item.parent.code.length > 4" style="margin-left: 20px" routerLink="{{item.parent.link}}">{{item.parent.nom}}</a>
+            </div>
+            <div *ngFor="let fils of item.childs" style="margin-bottom: 8px;">
+                <a routerLink="{{fils.link}}" style="margin-left: 40px">
+                    <img *ngIf="fils.smallImage" src="{{fils.smallImage}}" style="width:25px;" /> {{fils.nom}}
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

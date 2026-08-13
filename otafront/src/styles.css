@@ -1,0 +1,242 @@
+/* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: magical;
+    src: url('assets/font/Magical.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: pokemon;
+    src: url('assets/font/Pokemon.otf') format('opentype');
+  }
+  @font-face {
+    font-family: berlinsb;
+    src: url('assets/font/berlinsb.ttf') format('truetype');
+  }
+
+
+
+
+
+  .app-loading {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  .app-loading .spinner {
+    height: 200px;
+    width: 200px;
+    animation: rotate 2s linear infinite;
+    transform-origin: center center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+  .app-loading .spinner .path {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    animation: dash 1.5s ease-in-out infinite;
+    stroke-linecap: round;
+    stroke: rgb(3, 0, 184);
+  }
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes dash {
+    0% {
+      stroke-dasharray: 1, 200;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 89, 200;
+      stroke-dashoffset: -35px;
+    }
+    100% {
+      stroke-dasharray: 89, 200;
+      stroke-dashoffset: -124px;
+    }
+  }
+
+
+
+
+  input[type="button"], div, button, a
+  { 
+    transition : background-color ease-out 0.4s, color .3s ease-in, border-radius .35s ease-in, width ease-in-out 1s, height ease-in-out 1s, max-height ease-in-out 1s, font-size .25s, margin .25s, padding .25s, opacity .5s .25s; 
+  }
+  .slidecontainer, range-slider, .minslider, .maxslider, .sliderHilight { 
+    transition : none; 
+  } 
+  
+  input[type="button"]:active, button:active, a:active
+  { 
+    transition : background-color ease-out 0.1s, color .1s ease-in, border-radius .1s ease-in; 
+  }
+
+  .size-titre {
+    font-size: 24px;
+  }
+
+  .size-sous-titre {
+    font-size: 22px;
+  }
+
+  html, body, div, span, a, input, button, .size-medium {
+    font-family: berlinsb;
+    font-size: 19px; /* taille par default */
+  }
+
+  .size-small {
+    font-size: 17px;
+  }
+
+  .caret.caret-up {
+    transform: rotate(180deg);
+  }
+  .round-border {
+    border:2px solid #43C1FF;
+    border-radius:8px;
+    padding:12px 5px 5px 5px; 
+    background-color:white; 
+    margin-top:10px;
+    margin-bottom:10px;
+  }
+  .circle-border {
+    
+    border:1px solid white;
+    border-radius:50px;
+    padding: 2px; 
+    margin-left: 5px;
+    margin-right: 5px;
+    vertical-align: top;
+
+  }
+
+  .borderbottom {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #B5B5B5;
+    margin: 30px;
+  }
+
+  #main {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom:160px;
+  }
+    
+  #footer {
+    background-color: white;
+    border-top: 2px solid #43C1FF;
+    bottom: 0; 
+    height:160px;
+     margin-top: -160px;
+    clear: both;
+  }
+  .no-opacity { visibility: hidden;}
+
+
+  /* ****** */
+
+  .bbtn 
+  {
+    background-color :rgb(121, 228, 255); 
+    color          : rgb(56, 56, 56); 
+    cursor         : pointer;
+    outline        : none;
+    border         : 2px solid #43C1FF;
+    border-radius  : 4px;
+    margin-bottom  : 5px;
+    margin-top: 10px;
+  }
+  .bbtn:hover {
+    background-color :#3A6FFF; 
+    color            :#FFFFFF;
+  }
+  .bbtn:active 
+  { 
+    background-color : rgb(218, 248, 255);
+    color            : rgb(0, 38, 255);
+  }
+  .disabled, .bbtn:disabled, .bbtn[disabled] {
+    opacity : .5;
+    cursor  : not-allowed;
+  }
+
+  /* ****** */
+
+
+
+  /* ##Device = Desktops
+     ##Screen = 1281px to higher resolution desktops */
+  @media (min-width: 1281px) and (max-width: 1921px) {
+    .size-titre { font-size: 22px; }
+    .size-sous-titre { font-size: 20px; }
+    html, body, div, span, a, input, button, .size-medium { font-size: 17px; }
+    .size-small { font-size: 15px; }
+    .borderbottom { padding-bottom: 10px; border-bottom: 1px solid #B5B5B5; margin: 20px; }
+  }
+
+  /* ##Device = Laptops, Desktops
+     ##Screen = B/w 1025px to 1280px */
+  @media (min-width: 1025px) and (max-width: 1280px) {
+    .size-titre { font-size: 20px; }
+    .size-sous-titre { font-size: 17px; }
+    html, body, div, span, a, input, button, .size-medium { font-size: 15px; }
+    .size-small { font-size: 12px; }
+    .borderbottom { padding-bottom: 10px; border-bottom: 1px solid #B5B5B5; margin: 18px; }
+  }
+
+  /* ##Device = Tablets, Ipads (portrait)
+     ##Screen = B/w 768px to 1024px */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .size-titre { font-size: 17px; }
+    .size-sous-titre { font-size: 15px; }
+    html, body, div, span, a, input, button, .size-medium { font-size: 14px; }
+    .size-small { font-size: 10px; }
+    .borderbottom { padding-bottom: 10px; border-bottom: 1px solid #B5B5B5; margin: 16px; }
+  }
+
+  /* ##Device = Tablets, Ipads (landscape)
+     ##Screen = B/w 768px to 1024px */
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .size-titre { font-size: 17px; }
+    .size-sous-titre { font-size: 15px; }
+    html, body, div, span, a, input, button, .size-medium { font-size: 14px; }
+    .size-small { font-size: 10px; }
+    .borderbottom { padding-bottom: 10px; border-bottom: 1px solid #B5B5B5; margin: 16px; }
+  }
+
+  /* ##Device = Low Resolution Tablets, Mobiles (Landscape)
+     ##Screen = B/w 481px to 767px */
+  @media (min-width: 481px) and (max-width: 767px) {
+    .size-titre { font-size: 15px; }
+    .size-sous-titre { font-size: 14px; }
+    html, body, div, span, a, input, button, .size-medium { font-size: 12px; }
+    .size-small { font-size: 8px; }
+    .borderbottom { padding-bottom: 10px; border-bottom: 1px solid #B5B5B5; margin: 14px; }
+  }
+
+  /* ##Device = Most of the Smartphones Mobiles (Portrait)
+     ##Screen = B/w 320px to 479px */
+  @media (min-width: 320px) and (max-width: 480px) {
+    .size-titre { font-size: 14px; }
+    .size-sous-titre { font-size: 12px; }
+    html, body, div, span, a, input, button, .size-medium { font-size: 10px; }
+    .size-small { font-size: 6px; }
+    .borderbottom { padding-bottom: 10px; border-bottom: 1px solid #B5B5B5; margin: 13px; }
+  }
+
+  @media (max-width: 320px) {
+    .size-titre { font-size: 12px; }
+    .size-sous-titre { font-size: 10px; }
+    html, body, div, span, a, input, button, .size-medium { font-size: 8px; }
+    .size-small { font-size: 5px; }
+    .borderbottom { padding-bottom: 10px; border-bottom: 1px solid #B5B5B5; margin: 12px; }
+  }

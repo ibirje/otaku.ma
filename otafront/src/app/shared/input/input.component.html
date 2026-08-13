@@ -1,0 +1,4 @@
+<div [ngClass]="expanded ? 'searchformfld expanded':'notexpanded'" (click) = "focusInput()">
+  <input #vinput type="{{type}}" [(ngModel)] = "value" (ngModelChange)="updateChanges()" class="form-control size-medium" placeholder=" "/>
+  <label (click) = "focusInput()">{{titre}}</label>
+</div>

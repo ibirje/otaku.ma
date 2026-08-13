@@ -1,0 +1,59 @@
+<ng-container *ngIf = "variations && variations.length > 0">
+
+  <div *ngFor = "let fullattribut of attributs"
+    class="var-group btn-group btn-group-toggle col-md-12 col-lg-12 col-sm-12 col-xs-12"
+     role="group" data-toggle="buttons">
+
+    <div class="btn-group"><label class="input-sm attribut">{{fullattribut.attribut.nom}} : </label></div>
+    <!-- TODO attributs.length > 1 -->
+    <ng-container *ngIf ="attributs.length === 1; else varSansImages">
+      <label *ngFor = "let fullvariation of variations" #{{fullvariation.variation.code}}
+        [ngClass] = "selectedcode == fullvariation.variation.code ? 'variation-checked' : 'variation'"
+        style="margin-right: 5px; margin-bottom: 5px;"
+        class="btn btn-default"
+        data-toggle="tooltip"
+        title="{{fullvariation.variation.nom}}"> 
+
+        <input type="radio" 
+          (click)="variationSelect(fullvariation.variation.code)" 
+          name="{{fullvariation.variation.nom}}" 
+          value="{{fullvariation.variation.nom}}" autocomplete="off" >
+        <img src = "{{ fullvariation.variation.thumbnail }}" 
+          alt="{{ fullvariation.variation.nom }}" 
+          class="img-responsive"
+          [ngClass] = "selectedcode == fullvariation.variation.code ? 'variationimg-checked' : 'variationimg'"/>
+      </label>
+    </ng-container>
+
+    <ng-template #varSansImages>
+      <label *ngFor="let option of fullattribut.options" #{{option.code}} style="margin-right: 5px; margin-bottom: 5px;" class="btn btn-default"> 
+        <input type="radio" name="{{option.nom}}" id="{{option.nom}}" value="{{option.nom}}" autocomplete="off">
+        {{option.nom}}
+      </label>
+    </ng-template>
+
+  </div>
+</ng-container>
+
+<div style="margin-top:10px;margin-bottom:10px;">
+  Quantité : 
+  <input type="number" name="qte" [(ngModel)] = "qte" min="1" max="99" style="margin:0px 10px; width:60px;text-align: center; color: #005CFF;" >
+  <span class="gray" style=" margin-right:20px;" >pièces</span>
+</div>
+
+<div style="margin-top:20px; text-align: center" >
+  <button class="btn acheternow size-sous-titre" type="button" (click) = "acheterClick()" [ngClass] = "selectedcode ? '':'disabled' " value="acheter">Acheter maintenant</button> 
+  <button class="btn ajoutpanier size-sous-titre" type="button" (click) = "ajouterPanierClick()" [ngClass] = "selectedcode ? '':'disabled' " value="acheter">Ajouter au panier</button> 
+</div>
+
+<app-popup #ajoutpanierPopup
+  [titre] = "'Produit ajouté au panier'"
+  [buttonText] = "'Panier'"
+  (buttonClickedEvent) = "goToPanier()">
+</app-popup>
+
+<app-popup #nonConnectePopup 
+  [titre] = "'Non connecté'"
+  [buttonText] = "'Connecter'" 
+  (buttonClickedEvent) = "goToLogin()">
+</app-popup>

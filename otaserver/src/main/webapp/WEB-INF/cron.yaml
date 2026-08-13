@@ -1,0 +1,39 @@
+cron:
+
+  #   minutes
+- description: "genere & nettoie stats minute"
+  url: /app/schedule/stats_minute
+  schedule: every 1 mins
+  
+  #   heures
+- description: "nettoyer les connections et inscriptions expirées"
+  url: /app/schedule/cleanuptokens
+  schedule: every 1 hours
+  
+- description: "changes type images"
+  url: /app/schedule/type_images
+  schedule: every 1 hours
+  
+- description: "genere & nettoie stats heure"
+  url: /app/schedule/stats_heure
+  schedule: every 1 hours
+  
+  #   jours
+- description: "genere & nettoie stats jour"
+  url: /app/schedule/stats_jour
+  schedule: every day 23:00
+  
+- description: "genere & nettoie stats semaine"
+  url: /app/schedule/stats_week
+  schedule: every sunday 23:00
+  
+  #   mois
+- description: "genere & nettoie stats mois"
+  url: /app/schedule/stats_mois
+  schedule: 1 of month 00:00
+  
+  #   annee
+- description: "recalcule stats variations"
+  url: /app/schedule/refresh_stats_var
+  schedule: 1 of jan 00:00
+  

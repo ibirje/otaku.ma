@@ -1,0 +1,122 @@
+.dropbtn 
+{ 
+	color:rgb(0, 150, 236); 
+	background-color:#FFFFFF; 
+	padding: 2px 16px;
+	min-width: 220px;
+    border: 0
+}
+
+.dropbtn:hover 
+{ 
+	background-color:rgb(121, 228, 255); 
+	color:rgb(0, 0, 0); 
+}
+
+ 
+.dropdown 
+{
+    position: relative;
+	display: inline-block;
+	margin-top: 1px;
+}
+
+.dropdown-content 
+{
+    display: none;
+    position: absolute;
+		margin-top: -1px;
+		min-width: 220px;
+		z-index: 1020;
+    padding: 10px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    
+	border:2px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 40, 0.5), 0 6px 20px 0 rgba(0, 0, 40, 0.5);
+    
+	background-color:rgb(255, 255, 255); 
+}
+ 
+.dropdown-content a
+{
+	background-color:rgb(255, 255, 255); 
+	color:rgb(56, 56, 56); 
+	padding: 2px 4px;
+    text-decoration: none;
+    display: flex;
+	border: none;
+	align-self: center;
+}
+ 
+.dropdown-content a:hover , .content-btn:hover, .subdropbtn
+{
+	background-color:rgb(121, 228, 255); 
+	color:rgb(0, 0, 0); 
+}
+
+input[type="button"]:active, button:active, a:active, .dropbtn:active
+{ 
+	background-color: rgb(218, 248, 255);
+	color: rgb(0, 38, 255);
+}
+
+.dropdown:hover .dropdown-content
+{
+	display: inline-block;
+}
+
+input[type="button"], button,a 
+{
+	text-align: left;
+}
+
+.categ-parent 
+{
+	font-weight: bold;
+}
+
+.categ-sousparent 
+{
+	font-weight: 600;
+}
+
+
+
+@media (min-width: 1281px) and (max-width: 1921px) {
+	.dropbtn, .dropdown-content { min-width: 200px; }
+	.dropdown-content { padding: 6px;  }
+	.dropbtn { padding: 8px 16px; }
+  }
+  
+  @media (min-width: 1025px) and (max-width: 1280px) { 
+	.dropbtn, .dropdown-content { min-width: 180px; }
+	.dropdown-content { padding: 5px;  }
+	.dropbtn { padding: 3px 8px; }
+  }
+  
+  @media (min-width: 768px) and (max-width: 1024px) {
+	.dropbtn, .dropdown-content { min-width: 150px; }
+	.dropdown-content { padding: 4px;  }
+	.dropbtn { padding: 3px 6px; }
+  }
+  
+  @media (min-width: 481px) and (max-width: 767px) {
+	.dropbtn, .dropdown-content { min-width: 120px; }
+	.dropdown-content { padding: 4px;  }
+	.dropbtn { padding: 3px 6px; }
+  }
+  
+  @media (min-width: 320px) and (max-width: 480px) {
+	.dropbtn, .dropdown-content { min-width: 100px; }
+	.dropdown-content { padding: 3px;  }
+	.dropbtn { padding: 2px 4px; }
+  }
+  
+  @media (max-width: 320px) {
+	.dropbtn, .dropdown-content { min-width: 80px; }
+	.dropdown-content { padding: 2px;  }
+	.dropbtn { padding: 2px 3px; }
+  }
+  

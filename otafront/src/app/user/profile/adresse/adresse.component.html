@@ -1,0 +1,77 @@
+<div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+
+  <app-info-box [titre] = "titre" [selected] = "selected" (selectEvent) = "selectionChanged()" (expandEvent) = "expandedClick()">
+    <div contenu  style = "padding : 10px">
+
+      <div [ngClass]="!expanded ? 'notexpanded' : 'expand'">
+
+        <div class = "col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding : 0 5px;">
+          <app-input [(ngModel)] = "nom" [titre] = "'Nom*'" [expanded] = "expanded"></app-input>
+        </div>
+        <div class = "col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding : 0 5px;">
+          <app-input [(ngModel)] = "prenom" [titre] = "'Prénom*'" [expanded] = "expanded"></app-input>
+        </div>
+        
+        <div class = "col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding : 0 5px;">
+          <app-input [(ngModel)] = "adresse1" [titre] = "'Adresse 1*'" [expanded] = "expanded"></app-input>
+        </div>        
+
+        <div class = "col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding : 0 5px;">
+          <app-input [(ngModel)] = "adresse2" [titre] = "'Adresse 2'" [expanded] = "expanded"></app-input>
+        </div>
+
+        <div class = "col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding : 0 5px;">
+          <app-input [(ngModel)] = "telephone" [titre] = "'Téléphone*'" [expanded] = "expanded"></app-input>
+        </div>
+          
+        <div class = "col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding : 0 5px;">
+          <app-input [(ngModel)] = "ville" [titre] = "'Ville*'" [expanded] = "expanded"></app-input>
+        </div>
+        
+        <div class = "col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding : 0 5px;">
+          <app-input [type] = "'number'" [(ngModel)] = "codePostal" [titre] = "'Code Postal*'" [expanded] = "expanded"></app-input>
+        </div>
+        
+        <div class = "col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding : 0 5px; opacity: 0;">
+          <app-input [(ngModel)] = "codePostal" [titre] = "'Code Postal*'" [expanded] = "expanded"></app-input>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="alert " [ngClass]="[ hasError? 'alert-danger' : success ? 'alert-success' : 'alert-success no-opacity' ]" >
+
+            <div *ngIf="err_nom">Nom invalide</div>
+            <div *ngIf="!err_nom && err_prenom">Prenom invalide</div>
+            <div *ngIf="!err_nom && !err_prenom && err_telephone">Numéro de téléphone invalide</div>
+            <div *ngIf="!err_nom && !err_prenom && !err_telephone && err_adresse1">Adresse 1 invalide</div>
+            <div *ngIf="!err_nom && !err_prenom && !err_telephone && !err_adresse1 && err_adresse2">Adresse 2 invalide</div>
+            <div *ngIf="!err_nom && !err_prenom && !err_telephone && !err_adresse1 && !err_adresse2 && err_ville">Ville invalide</div>
+            
+            <div *ngIf="!err_nom && !err_prenom && !err_telephone && !err_adresse1 
+              && !err_adresse2 && !err_ville && err_codePostal">Code postal invalide</div>
+              
+            <div *ngIf="err_serveur">{{err_serveur}}</div>
+            <div *ngIf="success">{{success}} ( ͡° ͜ʖ ͡°)</div>
+
+          </div>
+        </div>
+
+        <button class = "bbtn" (click) = "enregistrer()" [ngClass]="saveEnabled ? '' : 'disabled'">Enregistrer</button>
+
+      </div>
+      
+      <div [ngClass]="expanded ? 'notexpanded' : 'expand'" style="margin-bottom: 20px;">
+        <div *ngIf = "adresse && adresse !== newaddr; else vide">
+          <p style="float : right">Prénom : {{adresse.prenom}}</p>
+          <p>Nom : {{adresse.nom}}</p>
+          <p style="float : right">...</p>
+          <p>Adresse : {{adresse.adresse1}}</p>
+        </div>
+        <ng-template #vide>
+          <div style="text-align: center;"><p>Vide</p></div>
+        </ng-template>
+      </div>
+
+    </div>
+  </app-info-box>
+  
+</div>
